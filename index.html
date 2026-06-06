@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АЛФА Траурни Услуги — Съчувствие и Деликатност</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0c0a08;
+  --surface:#131009;
+  --elevated:#1b1610;
+  --border:#28201a;
+  --border-mid:#352a20;
+  --text:#ece4d5;
+  --dim:#9b8d7b;
+  --muted:#6a5e51;
+  --gold:#c8a769;
+  --gold-l:#dbbf87;
+  --gold-f:rgba(200,167,105,.08);
+  --cream:#f0e8d6;
+  --max:1240px;
+  --hh:72px;
+  --fd:'Cormorant Garamond',Georgia,serif;
+  --fb:'Jost',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);font-weight:300;font-size:15px;line-height:1.7;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer}
+img{display:block;max-width:100%}
+
+/* ── LAYOUT ── */
+.wrap{max-width:var(--max);margin:0 auto;padding:0 40px}
+.sec{padding:96px 0}
+.sec-label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.sec-title{font-family:var(--fd);font-size:clamp(30px,4vw,50px);font-weight:300;color:var(--cream);line-height:1.12;margin-bottom:20px}
+.sec-body{color:var(--dim);font-size:15px;line-height:1.85;max-width:540px}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:48px}
+.divider{height:1px;background:var(--border)}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:9px;padding:13px 26px;font-family:var(--fb);font-size:12px;font-weight:400;letter-spacing:.13em;text-transform:uppercase;border:none;transition:.25s}
+.btn-gold{background:var(--gold);color:var(--bg)}
+.btn-gold:hover{background:var(--gold-l)}
+.btn-outline{background:transparent;color:var(--text);border:1px solid var(--border-mid)}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold)}
+.btn-ghost{background:transparent;border:none;color:var(--gold);padding:9px 0;font-size:12px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid transparent;transition:.2s}
+.btn-ghost:hover{border-color:var(--gold)}
+
+/* ── HEADER ── */
+.header{position:fixed;top:0;inset-inline:0;z-index:100;height:var(--hh);background:rgba(12,10,8,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.header-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:100%;max-width:var(--max);margin:0 auto;padding:0 40px;gap:20px}
+.h-left{display:flex;align-items:center;gap:20px}
+.h-contact{display:flex;align-items:center;gap:18px}
+.h-contact-link{display:flex;align-items:center;gap:7px;color:var(--dim);font-size:13px;transition:color .2s}
+.h-contact-link:hover{color:var(--gold)}
+.h-contact-link svg{width:13px;height:13px;flex-shrink:0}
+.h-phone{font-size:14px;font-weight:400;color:var(--text)}
+.logo{text-align:center;display:block}
+.logo-name{font-family:var(--fd);font-size:27px;font-weight:500;letter-spacing:.2em;color:var(--cream);display:block;line-height:1}
+.logo-sub{font-family:var(--fb);font-size:8.5px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);display:block;margin-top:5px}
+.h-right{display:flex;align-items:center;gap:20px;justify-content:flex-end}
+.lang-sw{display:flex;gap:2px}
+.lang-btn{background:none;border:none;color:var(--muted);font-family:var(--fb);font-size:11px;letter-spacing:.08em;padding:4px 7px;transition:color .2s}
+.lang-btn:hover,.lang-btn.active{color:var(--gold)}
+.lang-btn.active{font-weight:500}
+
+/* Nav trigger */
+.nav-wrap{position:relative}
+.nav-trigger{display:flex;align-items:center;gap:7px;background:none;border:1px solid var(--border);color:var(--text);padding:9px 16px;font-family:var(--fb);font-size:11px;letter-spacing:.18em;text-transform:uppercase;transition:.2s}
+.nav-trigger:hover,.nav-trigger.open{border-color:var(--gold);color:var(--gold)}
+.nav-chevron{width:9px;height:9px;transition:transform .2s}
+.nav-trigger.open .nav-chevron{transform:rotate(180deg)}
+
+/* Dropdown */
+.nav-drop{position:absolute;top:calc(100% + 8px);right:0;background:var(--elevated);border:1px solid var(--border);min-width:500px;display:none;z-index:200}
+.nav-drop.open{display:flex}
+.nav-col{flex:1;padding:20px 0}
+.nav-col+.nav-col{border-left:1px solid var(--border)}
+.nav-group{margin-bottom:4px}
+.nav-g-label{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);padding:8px 22px 4px}
+.nav-a{display:block;padding:8px 22px;color:var(--dim);font-size:14px;transition:color .15s,background .15s}
+.nav-a:hover{color:var(--cream);background:rgba(255,255,255,.025)}
+.nav-a.sub{padding-left:36px;font-size:13px;color:var(--muted)}
+.nav-a.sub:hover{color:var(--dim)}
+.nav-sep{height:1px;background:var(--border);margin:10px 0}
+
+/* ── FLOATING SIDEBAR ── */
+.sidebar{position:fixed;right:0;top:50%;transform:translateY(-50%);z-index:90;display:flex;flex-direction:column;background:var(--elevated);border:1px solid var(--border);border-right:none}
+.sb-item{display:flex;flex-direction:column;align-items:center;padding:14px 10px;color:var(--dim);transition:color .2s,background .2s;border-bottom:1px solid var(--border)}
+.sb-item:last-child{border-bottom:none}
+.sb-item:hover{color:var(--gold);background:var(--gold-f)}
+.sb-item svg{width:17px;height:17px}
+.sb-phone{writing-mode:vertical-rl;transform:rotate(180deg);font-size:11px;letter-spacing:.05em;margin-top:8px}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:var(--hh)}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 65% 35%,rgba(200,167,105,.07) 0%,transparent 55%),radial-gradient(ellipse at 20% 75%,rgba(200,167,105,.04) 0%,transparent 45%),var(--bg)}
+.hero-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");opacity:.6;pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:var(--max);margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:26px}
+.hero-eyebrow-line{width:36px;height:1px;background:var(--gold)}
+.hero-eyebrow-txt{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.hero-title{font-family:var(--fd);font-size:clamp(38px,5.5vw,76px);font-weight:300;line-height:1.04;color:var(--cream);margin-bottom:10px}
+.hero-title em{font-style:italic;color:var(--gold)}
+.hero-sub{font-family:var(--fd);font-size:clamp(16px,2.2vw,24px);font-weight:300;font-style:italic;color:var(--dim);margin-bottom:30px;line-height:1.45}
+.hero-desc{color:var(--dim);font-size:14.5px;line-height:1.85;margin-bottom:40px;max-width:460px}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap}
+.hero-badge{display:flex;align-items:center;gap:10px;margin-top:44px;padding-top:28px;border-top:1px solid var(--border)}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px rgba(74,222,128,.5);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.badge-txt{font-size:13px;color:var(--dim)}
+/* Hero visual */
+.hero-vis{position:relative}
+.hero-frame{position:relative;background:var(--elevated);border:1px solid var(--border);aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-frame::before{content:'';position:absolute;inset:16px;border:1px solid var(--border-mid);pointer-events:none;z-index:1}
+.hero-ph{text-align:center;color:var(--muted);position:relative;z-index:0}
+.hero-ph svg{width:52px;height:52px;opacity:.25;margin:0 auto 12px}
+.hero-ph span{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;opacity:.5}
+.hero-caption{position:absolute;bottom:20px;left:20px;right:20px;background:rgba(12,10,8,.88);backdrop-filter:blur(8px);border:1px solid var(--border);padding:16px 18px;z-index:2}
+.hero-cap-title{font-family:var(--fd);font-size:15px;font-weight:400;color:var(--cream);margin-bottom:3px}
+.hero-cap-sub{font-size:11px;color:var(--muted)}
+.hero-corner{position:absolute;top:-1px;right:-1px;background:var(--gold);color:var(--bg);font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:6px 12px;font-weight:500;z-index:3}
+/* Stats strip on hero bottom */
+.hero-stats{position:relative;z-index:1;max-width:var(--max);margin:0 auto;padding:0 40px 0;display:flex;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(12,10,8,.6);backdrop-filter:blur(6px)}
+.hero-stat{flex:1;padding:24px 32px;border-right:1px solid var(--border);text-align:center}
+.hero-stat:last-child{border-right:none}
+.stat-num{font-family:var(--fd);font-size:34px;font-weight:300;color:var(--gold);line-height:1}
+.stat-lbl{font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.05em}
+
+/* ── QUICK TILES ── */
+.tiles-bar{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.tiles-grid{display:grid;grid-template-columns:repeat(3,1fr)}
+.tile{display:flex;align-items:center;gap:18px;padding:30px 36px;border-right:1px solid var(--border);transition:background .2s;cursor:pointer}
+.tile:last-child{border-right:none}
+.tile:hover{background:var(--gold-f)}
+.tile-icon{width:46px;height:46px;border:1px solid var(--border-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--gold)}
+.tile-icon svg{width:21px;height:21px}
+.tile-title{font-family:var(--fd);font-size:18px;font-weight:400;color:var(--cream);margin-bottom:3px}
+.tile-desc{font-size:12px;color:var(--muted)}
+.tile-arr{margin-left:auto;color:var(--muted);flex-shrink:0}
+
+/* ── SERVICES ── */
+.svcs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:60px}
+.svc-card{background:var(--bg);padding:34px 28px;display:block;transition:background .2s}
+.svc-card:hover{background:var(--elevated)}
+.svc-icon{color:var(--gold);margin-bottom:18px}
+.svc-icon svg{width:36px;height:36px}
+.svc-name{font-family:var(--fd);font-size:20px;font-weight:400;color:var(--cream);margin-bottom:10px;line-height:1.2}
+.svc-desc{font-size:13.5px;color:var(--muted);line-height:1.7;margin-bottom:18px}
+.svc-link{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);opacity:0;transition:opacity .2s}
+.svc-card:hover .svc-link{opacity:1}
+
+/* ── MONUMENTS ── */
+.mon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.mon-card{background:var(--surface);border:1px solid var(--border);overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s}
+.mon-card:hover{border-color:var(--border-mid)}
+.mon-img{aspect-ratio:3/4;background:var(--elevated);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.mon-ph{text-align:center;color:var(--muted)}
+.mon-ph svg{width:36px;height:52px;opacity:.2;margin:0 auto 8px}
+.mon-ph span{font-size:9px;letter-spacing:.14em;text-transform:uppercase;opacity:.4}
+.mon-badge{position:absolute;top:10px;left:10px;font-size:9px;letter-spacing:.16em;text-transform:uppercase;padding:4px 9px;font-weight:500}
+.badge-cat{background:var(--gold);color:var(--bg)}
+.badge-new{background:transparent;color:var(--gold);border:1px solid var(--gold)}
+.mon-body{padding:18px;flex:1;display:flex;flex-direction:column}
+.mon-cat{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.mon-name{font-family:var(--fd);font-size:18px;font-weight:400;color:var(--cream);margin-bottom:7px;line-height:1.2}
+.mon-pr{display:flex;align-items:center;gap:6px;margin-bottom:16px;flex:1}
+.pr-dots{display:flex;gap:3px}
+.pr-dot{width:6px;height:6px;border-radius:50%;background:var(--border-mid)}
+.pr-dot.on{background:var(--gold)}
+.pr-lbl{font-size:11px;color:var(--muted)}
+.mon-cta{display:block;width:100%;padding:10px;background:transparent;border:1px solid var(--border-mid);color:var(--dim);font-family:var(--fb);font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-align:center;transition:.2s}
+.mon-cta:hover{background:var(--gold);border-color:var(--gold);color:var(--bg)}
+
+/* ── PORTFOLIO ── */
+.port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
+.port-card{position:relative;aspect-ratio:4/5;background:var(--elevated);border:1px solid var(--border);overflow:hidden;display:flex;align-items:flex-end;cursor:pointer;transition:border-color .2s}
+.port-card:hover{border-color:var(--border-mid)}
+.port-ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--border-mid)}
+.port-ph svg{width:64px;height:64px}
+.port-overlay{position:relative;width:100%;padding:22px;background:linear-gradient(to top,rgba(12,10,8,.95) 0%,transparent 100%)}
+.port-tag{font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.port-title{font-family:var(--fd);font-size:17px;font-weight:400;color:var(--cream)}
+
+/* ── LOCATIONS ── */
+.locs-sec{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.locs-grid{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--border)}
+.loc-card{border-right:1px solid var(--border)}
+.loc-hdr{display:flex;align-items:center;justify-content:space-between;padding:26px 30px;cursor:pointer;transition:background .2s;user-select:none}
+.loc-hdr:hover{background:var(--gold-f)}
+.loc-city{font-family:var(--fd);font-size:26px;font-weight:400;color:var(--cream)}
+.loc-yr{font-size:11px;color:var(--muted);margin-top:3px}
+.loc-toggle{width:26px;height:26px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);flex-shrink:0;transition:.2s}
+.loc-card.open .loc-toggle{border-color:var(--gold);color:var(--gold)}
+.loc-details{display:none;padding:0 30px 26px}
+.loc-card.open .loc-details{display:block}
+.loc-row{display:flex;gap:9px;align-items:flex-start;margin-bottom:10px;font-size:13px;color:var(--dim)}
+.loc-row svg{width:13px;height:13px;flex-shrink:0;margin-top:2px;color:var(--gold)}
+.loc-hrs{margin-top:14px;padding-top:14px;border-top:1px solid var(--border)}
+.hr-row{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);padding:2.5px 0}
+.loc-map{display:block;margin-top:14px;padding:9px;border:1px solid var(--border);text-align:center;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);transition:.2s}
+.loc-map:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── CALCULATOR ── */
+.calc-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.calc-widget{background:var(--surface);border:1px solid var(--border);padding:36px}
+.calc-title{font-family:var(--fd);font-size:22px;font-weight:400;color:var(--cream);margin-bottom:7px}
+.calc-desc{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.65}
+.f-group{margin-bottom:18px}
+.f-label{display:block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.f-input{width:100%;background:var(--bg);border:1px solid var(--border);color:var(--text);padding:12px 14px;font-family:var(--fb);font-size:14px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.f-input:focus{border-color:var(--gold)}
+input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(.6) sepia(.5) saturate(2) hue-rotate(5deg)}
+.calc-result{display:none;margin-top:24px;padding-top:24px;border-top:1px solid var(--border)}
+.calc-result.show{display:block}
+.res-row{display:flex;justify-content:space-between;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border)}
+.res-row:last-of-type{border-bottom:none}
+.res-label{font-size:12.5px;color:var(--muted)}
+.res-right{text-align:right}
+.res-date{font-family:var(--fd);font-size:18px;font-weight:400;color:var(--cream)}
+.res-cal{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);background:none;border:none;margin-top:3px;display:block;opacity:.8;transition:opacity .2s}
+.res-cal:hover{opacity:1}
+.calc-cta-box{margin-top:20px;padding:16px;background:var(--gold-f);border:1px solid var(--border-mid)}
+.calc-cta-text{font-size:13px;color:var(--dim);margin-bottom:10px}
+.calc-explainer{color:var(--dim)}
+.calc-explainer h3{font-family:var(--fd);font-size:28px;font-weight:300;color:var(--cream);margin-bottom:14px}
+.calc-explainer p{font-size:14.5px;line-height:1.85;color:var(--dim);margin-bottom:16px}
+.calc-tradition{display:flex;gap:16px;margin-top:24px;padding-top:24px;border-top:1px solid var(--border)}
+.trad-item{flex:1;padding:20px;background:var(--surface);border:1px solid var(--border)}
+.trad-num{font-family:var(--fd);font-size:38px;font-weight:300;color:var(--gold);line-height:1}
+.trad-lbl{font-size:12px;color:var(--muted);margin-top:4px}
+.trad-desc{font-size:12.5px;color:var(--dim);margin-top:8px;line-height:1.6}
+
+/* ── PLANS ── */
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}
+.plan{background:var(--surface);border:1px solid var(--border);padding:32px 28px;display:flex;flex-direction:column;position:relative;transition:border-color .2s}
+.plan.featured{border-color:var(--gold)}
+.plan-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--bg);font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:5px 14px;font-weight:500;white-space:nowrap}
+.plan-tier{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.plan-name{font-family:var(--fd);font-size:26px;font-weight:400;color:var(--cream);margin-bottom:5px}
+.plan-tagline{font-size:13px;color:var(--muted);margin-bottom:22px;line-height:1.55}
+.plan-features{list-style:none;flex:1;margin-bottom:24px}
+.pf{display:flex;gap:9px;align-items:flex-start;padding:8px 0;font-size:13px;border-bottom:1px solid var(--border)}
+.pf:last-child{border-bottom:none}
+.pf.inc{color:var(--text)}
+.pf.exc{color:var(--muted);opacity:.55}
+.pf svg{width:13px;height:13px;flex-shrink:0;margin-top:2px}
+.pf.inc svg{color:var(--gold)}
+.pf.exc svg{color:var(--muted)}
+.plan-note{font-size:11.5px;color:var(--muted);font-style:italic;margin-bottom:16px}
+
+/* ── REVIEWS ── */
+.revs-sec{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+.revs-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px}
+.rating-agg{display:flex;align-items:center;gap:18px}
+.rating-score{font-family:var(--fd);font-size:64px;font-weight:300;color:var(--cream);line-height:1}
+.stars{display:flex;gap:3px;margin-bottom:5px}
+.star{color:var(--gold);font-size:16px}
+.rating-cnt{font-size:13px;color:var(--muted)}
+.rating-src{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+.revs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:36px}
+.rev-card{background:var(--bg);border:1px solid var(--border);padding:26px}
+.rev-stars{display:flex;gap:3px;margin-bottom:14px}
+.rev-text{font-family:var(--fd);font-size:16px;font-weight:300;font-style:italic;color:var(--dim);line-height:1.7;margin-bottom:18px}
+.rev-author{display:flex;align-items:center;gap:11px}
+.rev-avatar{width:34px;height:34px;border-radius:50%;background:var(--elevated);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:14px;color:var(--muted);flex-shrink:0}
+.rev-name{font-size:13.5px;color:var(--cream)}
+.rev-city{font-size:11px;color:var(--muted);margin-top:1px}
+.revs-cta{text-align:center;padding-top:28px;border-top:1px solid var(--border)}
+
+/* ── TIMELINE ── */
+.timeline-wrap{position:relative;margin-top:60px;padding-top:48px}
+.tl-line{position:absolute;top:0;left:0;right:0;height:1px;background:var(--border)}
+.timeline{display:flex;gap:0}
+.tl-item{flex:1;position:relative}
+.tl-dot{position:absolute;top:-49px;left:0;width:14px;height:14px;border:1px solid var(--gold);background:var(--bg);transform:rotate(45deg)}
+.tl-dot.fill{background:var(--gold)}
+.tl-dot.future{border-color:var(--border-mid)}
+.tl-year{font-family:var(--fd);font-size:30px;font-weight:300;color:var(--gold);margin-bottom:6px}
+.tl-city{font-size:14px;color:var(--cream);margin-bottom:5px}
+.tl-desc{font-size:12.5px;color:var(--muted);line-height:1.6;max-width:190px}
+.tl-arrow{display:flex;align-items:flex-start;padding-top:0;padding-left:20px;color:var(--muted);flex-shrink:0}
+
+/* ── PRE-NEED CTA BANNER ── */
+.preneed{background:var(--elevated);border-top:1px solid var(--border);border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.preneed::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--gold-f) 0%,transparent 55%)}
+.preneed-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center;padding:72px 40px;max-width:var(--max);margin:0 auto}
+.preneed-title{font-family:var(--fd);font-size:clamp(26px,4vw,46px);font-weight:300;color:var(--cream);line-height:1.15;margin-bottom:14px}
+.preneed-desc{color:var(--dim);font-size:15px;line-height:1.85;max-width:520px}
+.preneed-actions{display:flex;flex-direction:column;gap:12px;align-items:flex-end;flex-shrink:0}
+
+/* ── FOOTER ── */
+.footer{background:var(--surface);border-top:1px solid var(--border)}
+.footer-main{max-width:var(--max);margin:0 auto;padding:68px 40px 52px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:44px}
+.footer-logo{font-family:var(--fd);font-size:26px;font-weight:500;letter-spacing:.1em;color:var(--cream);margin-bottom:3px}
+.footer-tagline{font-family:var(--fd);font-size:14px;font-style:italic;color:var(--gold);margin-bottom:18px}
+.footer-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:22px}
+.footer-socials{display:flex;gap:8px}
+.social-link{width:32px;height:32px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);transition:.2s}
+.social-link:hover{border-color:var(--gold);color:var(--gold)}
+.social-link svg{width:14px;height:14px}
+.footer-col-title{font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:9px}
+.footer-links a{font-size:13.5px;color:var(--muted);transition:color .2s}
+.footer-links a:hover{color:var(--text)}
+.footer-bottom{max-width:var(--max);margin:0 auto;padding:18px 40px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:12px;color:var(--muted)}
+.footer-legal{display:flex;gap:18px}
+.footer-legal a{font-size:12px;color:var(--muted);transition:color .2s}
+.footer-legal a:hover{color:var(--text)}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(5px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--elevated);border:1px solid var(--border);width:460px;max-width:90vw;position:relative}
+.modal-close{position:absolute;top:14px;right:14px;background:none;border:none;color:var(--muted);padding:4px;transition:color .2s}
+.modal-close:hover{color:var(--cream)}
+.modal-close svg{width:18px;height:18px}
+.modal-head{padding:28px 32px 22px;border-bottom:1px solid var(--border)}
+.modal-prod-tag{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+.modal-title{font-family:var(--fd);font-size:22px;font-weight:400;color:var(--cream);margin-bottom:3px}
+.modal-sub{font-size:13px;color:var(--muted);line-height:1.5}
+.modal-body{padding:24px 32px 28px}
+.modal-step{transition:opacity .3s}
+.modal-step.hidden{display:none}
+.modal-form-desc{font-size:14px;color:var(--dim);margin-bottom:18px;line-height:1.6}
+.modal-privacy{font-size:11px;color:var(--muted);margin-top:7px;display:flex;align-items:center;gap:5px}
+.modal-privacy svg{width:11px;height:11px;flex-shrink:0}
+/* Price reveal result */
+.modal-result{text-align:center;padding:8px 0}
+.price-display{font-family:var(--fd);font-size:58px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:4px}
+.price-currency{font-size:22px;vertical-align:super;margin-right:4px;font-weight:300}
+.price-note{font-size:12.5px;color:var(--muted);margin-bottom:18px}
+.modal-thanks{font-family:var(--fd);font-size:17px;font-style:italic;color:var(--dim);margin-bottom:22px}
+.modal-next{padding:18px;background:var(--gold-f);border:1px solid var(--border-mid);font-size:13px;color:var(--dim);display:flex;align-items:center;justify-content:space-between;gap:16px}
+
+/* ── GDPR BANNER ── */
+.gdpr{position:fixed;bottom:0;inset-inline:0;background:var(--elevated);border-top:1px solid var(--border);padding:18px 36px;z-index:600;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.gdpr.gone{display:none}
+.gdpr-txt{font-size:13px;color:var(--dim);line-height:1.55;max-width:580px}
+.gdpr-txt a{color:var(--gold);text-decoration:underline}
+.gdpr-btns{display:flex;gap:10px;flex-shrink:0}
+
+/* ── PLACEHOLDER ART ── */
+.ph-art{color:var(--border-mid);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.ph-art svg{opacity:.4}
+.ph-art span{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.4}
+</style>
+</head>
+<body>
+
+<!-- ─────────── GDPR BANNER ─────────── -->
+<div class="gdpr" id="gdpr">
+  <p class="gdpr-txt">Използваме бисквитки за аналитика и маркетинг. С продължаването вие се съгласявате с нашата <a href="#">Политика за бисквитки</a>.</p>
+  <div class="gdpr-btns">
+    <button class="btn btn-outline" style="padding:9px 18px;font-size:11px" onclick="document.getElementById('gdpr').classList.add('gone')">Само необходими</button>
+    <button class="btn btn-gold" style="padding:9px 18px;font-size:11px" onclick="document.getElementById('gdpr').classList.add('gone')">Приемам всички</button>
+  </div>
+</div>
+
+<!-- ─────────── FLOATING SIDEBAR ─────────── -->
+<div class="sidebar">
+  <a href="tel:+359888715021" class="sb-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6a2 2 0 012-2h3l2 5-2.5 1.5a11 11 0 005 5L13 13l5 2v3a2 2 0 01-2 2A16 16 0 012 6z"/></svg>
+    <span class="sb-phone">+359 888 715 021</span>
+  </a>
+  <a href="#" class="sb-item">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 2C6.47 2 2 6.47 2 11.99c0 1.97.54 3.81 1.47 5.4L2 22l4.74-1.44C8.22 21.44 10.06 22 11.99 22c5.52 0 9.99-4.47 9.99-9.99C21.98 6.48 17.51 2 11.99 2z"/></svg>
+  </a>
+</div>
+
+<!-- ─────────── HEADER ─────────── -->
+<header class="header">
+  <div class="header-inner">
+    <div class="h-left">
+      <div class="h-contact">
+        <a href="mailto:office@funeralalfa.com" class="h-contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>office@funeralalfa.com</span>
+        </a>
+        <a href="tel:+359888715021" class="h-contact-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6a2 2 0 012-2h3l2 5-2.5 1.5a11 11 0 005 5L13 13l5 2v3a2 2 0 01-2 2A16 16 0 012 6z"/></svg>
+          <span class="h-phone">+359 888 715 021</span>
+        </a>
+      </div>
+    </div>
+
+    <a href="#" class="logo">
+      <span class="logo-name">АЛФА</span>
+      <span class="logo-sub">Траурни Услуги</span>
+    </a>
+
+    <div class="h-right">
+      <div class="lang-sw">
+        <button class="lang-btn active">БГ</button>
+        <button class="lang-btn">EN</button>
+        <button class="lang-btn">RU</button>
+      </div>
+      <div class="nav-wrap">
+        <button class="nav-trigger" id="navTrigger" onclick="toggleNav()">
+          УСЛУГИ
+          <svg class="nav-chevron" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="1,3 5,7 9,3"/></svg>
+        </button>
+        <div class="nav-drop" id="navDrop">
+          <div class="nav-col">
+            <div class="nav-group">
+              <div class="nav-g-label">Основни услуги</div>
+              <a href="#" class="nav-a">Погребални услуги</a>
+              <a href="#" class="nav-a sub">• Погребение</a>
+              <a href="#" class="nav-a sub">• Кремация</a>
+              <a href="#" class="nav-a sub">• Транспорт и репатриация</a>
+              <a href="#" class="nav-a sub">• Цветя и кетеринг</a>
+            </div>
+            <div class="nav-sep"></div>
+            <div class="nav-group">
+              <div class="nav-g-label">Каталози</div>
+              <a href="#" class="nav-a">Паметници</a>
+              <a href="#" class="nav-a sub">• Триплекс</a>
+              <a href="#" class="nav-a sub">• Гранит</a>
+              <a href="#" class="nav-a sub">• Мрамор</a>
+              <a href="#" class="nav-a">Погребални артикули</a>
+              <a href="#" class="nav-a sub">• Ковчези</a>
+              <a href="#" class="nav-a sub">• Кръстове</a>
+              <a href="#" class="nav-a sub">• Драперия</a>
+            </div>
+          </div>
+          <div class="nav-col">
+            <div class="nav-group">
+              <div class="nav-g-label">Допълнителни услуги</div>
+              <a href="#" class="nav-a">Гробни места</a>
+              <a href="#" class="nav-a">Абонамент за поддръжка</a>
+              <a href="#" class="nav-a">Планирай напред</a>
+              <a href="#" class="nav-a">Примери гробни места</a>
+            </div>
+            <div class="nav-sep"></div>
+            <div class="nav-group">
+              <div class="nav-g-label">Компания</div>
+              <a href="#" class="nav-a">За нас</a>
+              <a href="#" class="nav-a">Отзиви</a>
+              <a href="#" class="nav-a">ЧЗВ</a>
+              <a href="#" class="nav-a">Контакти</a>
+              <a href="#" class="nav-a">Офиси</a>
+            </div>
+            <div class="nav-sep"></div>
+            <div class="nav-group">
+              <div class="nav-g-label">Инструменти</div>
+              <a href="#" class="nav-a">Калкулатор 9/40 дни</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ─────────── PRICE REVEAL MODAL ─────────── -->
+<div class="modal-overlay" id="priceModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="modal-head">
+      <div class="modal-prod-tag" id="modalTag">Гранитен паметник</div>
+      <div class="modal-title" id="modalProductName">Паметник Аврора</div>
+      <div class="modal-sub">Виж актуалната цена — въведете телефон или имейл</div>
+    </div>
+    <div class="modal-body">
+      <!-- Step 1: Form -->
+      <div class="modal-step" id="stepForm">
+        <p class="modal-form-desc">Въведете телефон или имейл, за да видите цената. Не споделяме данните ви.</p>
+        <div class="f-group">
+          <label class="f-label">Телефон или имейл</label>
+          <input type="text" class="f-input" id="contactInput" placeholder="+359 8__ __ __ __ или email@">
+        </div>
+        <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="revealPrice()">
+          Виж цената →
+        </button>
+        <p class="modal-privacy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+          Не споделяме вашите данни с трети страни
+        </p>
+      </div>
+      <!-- Step 2: Result -->
+      <div class="modal-step hidden" id="stepResult">
+        <div class="modal-result">
+          <div class="modal-thanks">Благодарим ви!</div>
+          <div class="price-display"><span class="price-currency">лв.</span><span id="priceValue">2 450</span></div>
+          <div class="price-note">Индикативна цена · Валидна за текущия каталог</div>
+          <div class="modal-next">
+            <span>Искате персонализирана оферта с монтаж и гравиране?</span>
+            <button class="btn btn-outline" style="padding:9px 16px;font-size:11px;flex-shrink:0">Поискай оферта</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── MAIN ─────────── -->
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-line"></span>
+        <span class="hero-eyebrow-txt">От 1994 година — Плевен, Левски, Севлиево</span>
+      </div>
+      <h1 class="hero-title">Съчувствие<br>и <em>Деликатност</em></h1>
+      <p class="hero-sub">Грижим се за всеки детайл, когато имате нужда от нас най-много</p>
+      <p class="hero-desc">АЛФА предлага пълен спектър от траурни услуги, паметници и гробна поддръжка в цяла България. С нас сте в добри ръце — 24 часа в денонощието, 7 дни в седмицата.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn btn-gold">Свържете се с нас</a>
+        <a href="#" class="btn btn-outline">Нашите услуги</a>
+      </div>
+      <div class="hero-badge">
+        <div class="badge-dot"></div>
+        <span class="badge-txt">Работим 24 ч / 7 дни — Национален обхват</span>
+      </div>
+    </div>
+    <div class="hero-vis">
+      <div class="hero-frame">
+        <div class="hero-ph">
+          <svg viewBox="0 0 80 120" fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M40 5 C20 5 8 18 8 35 L8 115 L72 115 L72 35 C72 18 60 5 40 5Z"/>
+            <line x1="40" y1="60" x2="40" y2="90"/>
+            <line x1="28" y1="72" x2="52" y2="72"/>
+          </svg>
+          <span>Фото на съоръжение</span>
+        </div>
+        <div class="hero-caption">
+          <div class="hero-cap-title">Офис Плевен — Главен</div>
+          <div class="hero-cap-sub">ул. [Адрес] · Работи 24/7</div>
+        </div>
+        <div class="hero-corner">Нов офис 2025</div>
+      </div>
+    </div>
+  </div>
+  <!-- Stats strip -->
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="stat-num">30+</div>
+      <div class="stat-lbl">Години опит</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-num">3</div>
+      <div class="stat-lbl">Града</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-num">[X]</div>
+      <div class="stat-lbl">Семейства</div>
+    </div>
+    <div class="hero-stat">
+      <div class="stat-num">[Y]</div>
+      <div class="stat-lbl">Паметника</div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK TILES -->
+<div class="tiles-bar">
+  <div class="tiles-grid">
+    <div class="tile">
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2L4 6v6c0 5.5 3.5 9.7 8 11 4.5-1.3 8-5.5 8-11V6l-8-4z"/></svg>
+      </div>
+      <div>
+        <div class="tile-title">Погребение</div>
+        <div class="tile-desc">Пълна организация на погребение</div>
+      </div>
+      <div class="tile-arr">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3C7 3 4 8 4 12s3 9 8 9 8-4 8-9-3-9-8-9z"/><line x1="12" y1="12" x2="12" y2="18"/></svg>
+      </div>
+      <div>
+        <div class="tile-title">Паметници</div>
+        <div class="tile-desc">Гранит, мрамор, триплекс</div>
+      </div>
+      <div class="tile-arr">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+      </div>
+    </div>
+    <div class="tile">
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div>
+        <div class="tile-title">Планирай напред</div>
+        <div class="tile-desc">Спестете на близките си грижата</div>
+      </div>
+      <div class="tile-arr">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="sec" style="background:var(--bg)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-label">Нашите услуги</div>
+        <h2 class="sec-title">Грижа за всеки момент</h2>
+        <p class="sec-body">Предлагаме пълен спектър от траурни услуги, достъпни чрез всички наши офиси в страната.</p>
+      </div>
+    </div>
+    <div class="svcs-grid">
+      <a href="#" class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 2L4 6v6c0 5.5 3.5 9.7 8 11 4.5-1.3 8-5.5 8-11V6l-8-4z"/></svg></div>
+        <div class="svc-name">Погребение</div>
+        <p class="svc-desc">Пълна организация — от оформлението до траурната церемония, в съответствие с вашите традиции.</p>
+        <span class="svc-link">Научете повече →</span>
+      </a>
+      <a href="#" class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/></svg></div>
+        <div class="svc-name">Кремация</div>
+        <p class="svc-desc">Кремационни услуги с пълно съпровождение, включително транспорт и урна по ваш избор.</p>
+        <span class="svc-link">Научете повече →</span>
+      </a>
+      <a href="#" class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1" y="3" width="15" height="13"/><polygon points="16,8 20,8 23,11 23,16 16,16 16,8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="svc-name">Транспорт и репатриация</div>
+        <p class="svc-desc">Транспорт в страната и репатриация от чужбина — координиране с международни партньори.</p>
+        <span class="svc-link">Научете повече →</span>
+      </a>
+      <a href="#" class="svc-card">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M7 12l2 2 4-4"/></svg></div>
+        <div class="svc-name">Цветя и кетеринг</div>
+        <p class="svc-desc">Траурни венци, аранжировки и кетеринг за помен — организирано с грижа и вкус.</p>
+        <span class="svc-link">Научете повече →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MONUMENTS PREVIEW -->
+<section class="sec" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-label">Паметници</div>
+        <h2 class="sec-title">Избрани паметници</h2>
+      </div>
+      <a href="#" class="btn-ghost">Виж целия каталог →</a>
+    </div>
+    <div class="mon-grid">
+      <!-- Card 1 -->
+      <div class="mon-card">
+        <div class="mon-img">
+          <div class="ph-art">
+            <svg width="48" height="70" viewBox="0 0 48 70" fill="none" stroke="currentColor" stroke-width="1"><path d="M24 2C12 2 4 12 4 20L4 68L44 68L44 20C44 12 36 2 24 2Z"/><line x1="24" y1="36" x2="24" y2="56"/><line x1="16" y1="44" x2="32" y2="44"/></svg>
+            <span>Снимка паметник</span>
+          </div>
+          <div class="mon-badge badge-cat">Гранит</div>
+        </div>
+        <div class="mon-body">
+          <div class="mon-cat">Черен гранит · Триплекс</div>
+          <div class="mon-name">Паметник Аврора</div>
+          <div class="mon-pr">
+            <div class="pr-dots"><div class="pr-dot on"></div><div class="pr-dot on"></div><div class="pr-dot on"></div></div>
+            <span class="pr-lbl">Премиум</span>
+          </div>
+          <button class="mon-cta" onclick="openModal('Паметник Аврора','Гранитен паметник','2 450')">Виж цената</button>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="mon-card">
+        <div class="mon-img">
+          <div class="ph-art">
+            <svg width="40" height="68" viewBox="0 0 40 68" fill="none" stroke="currentColor" stroke-width="1"><rect x="4" y="22" width="32" height="44" rx="2"/><ellipse cx="20" cy="22" rx="16" ry="16"/></svg>
+            <span>Снимка паметник</span>
+          </div>
+          <div class="mon-badge badge-new">НОВО</div>
+        </div>
+        <div class="mon-body">
+          <div class="mon-cat">Мрамор · Класически</div>
+          <div class="mon-name">Паметник Серена</div>
+          <div class="mon-pr">
+            <div class="pr-dots"><div class="pr-dot on"></div><div class="pr-dot on"></div><div class="pr-dot"></div></div>
+            <span class="pr-lbl">Среден</span>
+          </div>
+          <button class="mon-cta" onclick="openModal('Паметник Серена','Мраморен паметник','1 890')">Виж цената</button>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="mon-card">
+        <div class="mon-img">
+          <div class="ph-art">
+            <svg width="44" height="72" viewBox="0 0 44 72" fill="none" stroke="currentColor" stroke-width="1"><path d="M22 2L2 16V70H42V16L22 2Z"/></svg>
+            <span>Снимка паметник</span>
+          </div>
+          <div class="mon-badge badge-cat">Триплекс</div>
+        </div>
+        <div class="mon-body">
+          <div class="mon-cat">Триплекс · Семеен</div>
+          <div class="mon-name">Паметник Виктория</div>
+          <div class="mon-pr">
+            <div class="pr-dots"><div class="pr-dot on"></div><div class="pr-dot on"></div><div class="pr-dot on"></div></div>
+            <span class="pr-lbl">Премиум</span>
+          </div>
+          <button class="mon-cta" onclick="openModal('Паметник Виктория','Триплекс паметник','3 200')">Виж цената</button>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="mon-card">
+        <div class="mon-img">
+          <div class="ph-art">
+            <svg width="36" height="66" viewBox="0 0 36 66" fill="none" stroke="currentColor" stroke-width="1"><rect x="4" y="20" width="28" height="44"/><path d="M4 20C4 9 32 9 32 20"/></svg>
+            <span>Снимка паметник</span>
+          </div>
+          <div class="mon-badge badge-cat">Гранит</div>
+        </div>
+        <div class="mon-body">
+          <div class="mon-cat">Сив гранит · Модерен</div>
+          <div class="mon-name">Паметник Еверест</div>
+          <div class="mon-pr">
+            <div class="pr-dots"><div class="pr-dot on"></div><div class="pr-dot"></div><div class="pr-dot"></div></div>
+            <span class="pr-lbl">Бюджетен</span>
+          </div>
+          <button class="mon-cta" onclick="openModal('Паметник Еверест','Гранитен паметник','980')">Виж цената</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="sec" style="background:var(--bg)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-label">Реализирани проекти</div>
+        <h2 class="sec-title">Примери гробни места</h2>
+        <p class="sec-body">Пълна изработка на гробно място — от паметника до озеленяването.</p>
+      </div>
+      <a href="#" class="btn-ghost">Виж всички →</a>
+    </div>
+    <div class="port-grid">
+      <div class="port-card">
+        <div class="port-ph"><svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1" opacity=".3"><rect x="20" y="10" width="40" height="60"/><path d="M20 10C20 2 60 2 60 10"/><line x1="40" y1="30" x2="40" y2="50"/><line x1="30" y1="40" x2="50" y2="40"/></svg></div>
+        <div class="port-overlay">
+          <div class="port-tag">Гранит + Озеленяване</div>
+          <div class="port-title">Проект Плевен — 2024</div>
+        </div>
+      </div>
+      <div class="port-card">
+        <div class="port-ph"><svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1" opacity=".3"><path d="M40 5L10 25V75H70V25L40 5Z"/><line x1="40" y1="40" x2="40" y2="60"/></svg></div>
+        <div class="port-overlay">
+          <div class="port-tag">Триплекс + Ограждение</div>
+          <div class="port-title">Проект Севлиево — 2024</div>
+        </div>
+      </div>
+      <div class="port-card">
+        <div class="port-ph"><svg viewBox="0 0 80 80" fill="none" stroke="currentColor" stroke-width="1" opacity=".3"><ellipse cx="40" cy="28" rx="25" ry="25"/><rect x="15" y="28" width="50" height="47"/></svg></div>
+        <div class="port-overlay">
+          <div class="port-tag">Мрамор · Семейно</div>
+          <div class="port-title">Проект Левски — 2023</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATIONS -->
+<section class="locs-sec sec">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:40px">
+      <div>
+        <div class="sec-label">Нашите офиси</div>
+        <h2 class="sec-title">Намерете ни</h2>
+      </div>
+      <a href="#" class="btn-ghost">Всички офиси →</a>
+    </div>
+  </div>
+  <div style="max-width:var(--max);margin:0 auto;padding:0 40px">
+    <div class="locs-grid">
+      <!-- Pleven -->
+      <div class="loc-card" id="loc1">
+        <div class="loc-hdr" onclick="toggleLoc('loc1')">
+          <div>
+            <div class="loc-city">Плевен</div>
+            <div class="loc-yr">Основан 1994 · Главен офис</div>
+          </div>
+          <div class="loc-toggle">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+          </div>
+        </div>
+        <div class="loc-details">
+          <div class="loc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>ул. [Адрес], Плевен 5800</div>
+          <div class="loc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6a2 2 0 012-2h3l2 5-2.5 1.5a11 11 0 005 5L13 13l5 2v3a2 2 0 01-2 2A16 16 0 012 6z"/></svg>+359 888 715 021</div>
+          <div class="loc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>pleven@funeralalfa.com</div>
+          <div class="loc-hrs">
+            <div class="hr-row"><span>Понеделник – Петък</span><span>08:00 – 18:00</span></div>
+            <div class="hr-row"><span>Събота</span><span>09:00 – 14:00</span></div>
+            <div class="hr-row"><span>Спешни случаи</span><span style="color:var(--gold)">24/7</span></div>
+          </div>
+          <a href="#" class="loc-map">📍 Виж на картата</a>
+        </div>
+      </div>
+      <!-- Levski -->
+      <div class="loc-card" id="loc2">
+        <div class="loc-hdr" onclick="toggleLoc('loc2')">
+          <div>
+            <div class="loc-city">Левски</div>
+            <div class="loc-yr">Основан 2005</div>
+          </div>
+          <div class="loc-toggle">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+          </div>
+        </div>
+        <div class="loc-details">
+          <div class="loc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>ул. [Адрес], Левски 5900</div>
+          <div class="loc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6a2 2 0 012-2h3l2 5-2.5 1.5a11 11 0 005 5L13 13l5 2v3a2 2 0 01-2 2A16 16 0 012 6z"/></svg>+359 8__ __ __ __</div>
+          <div class="loc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>levski@funeralalfa.com</div>
+          <div class="loc-hrs">
+            <div class="hr-row"><span>Понеделник – Петък</span><span>08:00 – 18:00</span></div>
+            <div class="hr-row"><span>Събота</span><span>09:00 – 14:00</span></div>
+            <div class="hr-row"><span>Спешни случаи</span><span style="color:var(--gold)">24/7</span></div>
+          </div>
+          <a href="#" class="loc-map">📍 Виж на картата</a>
+        </div>
+      </div>
+      <!-- Sevlievo -->
+      <div class="loc-card" id="loc3">
+        <div class="loc-hdr" onclick="toggleLoc('loc3')">
+          <div>
+            <div class="loc-city">Севлиево</div>
+            <div class="loc-yr">Основан 2015</div>
+          </div>
+          <div class="loc-toggle">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6,9 12,15 18,9"/></svg>
+          </div>
+        </div>
+        <div class="loc-details">
+          <div class="loc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>ул. [Адрес], Севлиево 5400</div>
+          <div class="loc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 6a2 2 0 012-2h3l2 5-2.5 1.5a11 11 0 005 5L13 13l5 2v3a2 2 0 01-2 2A16 16 0 012 6z"/></svg>+359 8__ __ __ __</div>
+          <div class="loc-row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>sevlievo@funeralalfa.com</div>
+          <div class="loc-hrs">
+            <div class="hr-row"><span>Понеделник – Петък</span><span>08:00 – 18:00</span></div>
+            <div class="hr-row"><span>Спешни случаи</span><span style="color:var(--gold)">24/7</span></div>
+          </div>
+          <a href="#" class="loc-map">📍 Виж на картата</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="sec" style="background:var(--bg)">
+  <div class="wrap">
+    <div class="calc-inner">
+      <div class="calc-explainer">
+        <div class="sec-label">Инструмент</div>
+        <h2 class="sec-title">Калкулатор<br>9 и 40 дни</h2>
+        <p>Въведете датата на починалия и автоматично ще изчислим датите за помените на 9-тия и 40-тия ден, а и за едногодишната годишнина.</p>
+        <p>Всяка дата може да бъде изтеглена като събитие в календара (.ics формат).</p>
+        <div class="calc-tradition">
+          <div class="trad-item">
+            <div class="trad-num">9</div>
+            <div class="trad-lbl">дни</div>
+            <div class="trad-desc">Символизира прехода на душата</div>
+          </div>
+          <div class="trad-item">
+            <div class="trad-num">40</div>
+            <div class="trad-lbl">дни</div>
+            <div class="trad-desc">Краят на жалейния период</div>
+          </div>
+          <div class="trad-item">
+            <div class="trad-num">1</div>
+            <div class="trad-lbl">година</div>
+            <div class="trad-desc">Годишна помен — бонус изчисление</div>
+          </div>
+        </div>
+      </div>
+      <div class="calc-widget">
+        <div class="calc-title">Изчисли дати на помени</div>
+        <p class="calc-desc">Изберете дата на смъртта и натиснете „Изчисли".</p>
+        <div class="f-group">
+          <label class="f-label">Дата на смъртта</label>
+          <input type="date" class="f-input" id="deathDate">
+        </div>
+        <button class="btn btn-gold" style="width:100%;justify-content:center" onclick="calcDates()">Изчисли</button>
+        <div class="calc-result" id="calcResult">
+          <div class="res-row">
+            <div>
+              <div class="res-label">Помен — 9 дни</div>
+            </div>
+            <div class="res-right">
+              <div class="res-date" id="date9"></div>
+              <button class="res-cal">+ Добави в календара</button>
+            </div>
+          </div>
+          <div class="res-row">
+            <div>
+              <div class="res-label">Помен — 40 дни</div>
+            </div>
+            <div class="res-right">
+              <div class="res-date" id="date40"></div>
+              <button class="res-cal">+ Добави в календара</button>
+            </div>
+          </div>
+          <div class="res-row">
+            <div>
+              <div class="res-label">Годишнина — 1 година</div>
+            </div>
+            <div class="res-right">
+              <div class="res-date" id="date1yr"></div>
+              <button class="res-cal">+ Добави в календара</button>
+            </div>
+          </div>
+          <div class="calc-cta-box">
+            <p class="calc-cta-text">Искате да организирате панахида? Попълнете формуляр и ние ще се свържем с вас.</p>
+            <button class="btn btn-outline" style="font-size:11px;padding:10px 18px">Попълни формуляр за панахида</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAINTENANCE PLANS -->
+<section class="sec" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-label">Абонамент</div>
+        <h2 class="sec-title">Поддръжка на гробни места</h2>
+        <p class="sec-body">Три нива на обслужване — изберете според вашите нужди. Ние се грижим за гробното място вместо вас.</p>
+      </div>
+    </div>
+    <div class="plans-grid">
+      <div class="plan">
+        <div class="plan-tier">Ниво 01</div>
+        <div class="plan-name">Основен</div>
+        <div class="plan-tagline">Еднократно почистване преди годишнина или помен</div>
+        <ul class="plan-features">
+          <li class="pf inc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> Почистване на плочата</li>
+          <li class="pf inc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> Подреждане на цветя (ваши)</li>
+          <li class="pf inc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> Снимка след услугата</li>
+          <li class="pf exc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Сезонна поддръжка</li>
+          <li class="pf exc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Цветя от нас</li>
+        </ul>
+        <p class="plan-note">Цената зависи от местоположението</p>
+        <button class="btn btn-outline" style="width:100%;justify-content:center">Поискай оферта</button>
+      </div>
+      <div class="plan featured">
+        <div class="plan-badge">Препоръчан</div>
+        <div class="plan-tier">Ниво 02</div>
+        <div class="plan-name">Годишен</div>
+        <div class="plan-tagline">Пълна годишна поддръжка с посещения преди всяка годишнина</div>
+        <ul class="plan-features">
+          <li class="pf inc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> Почистване на плочата</li>
+          <li class="pf inc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> Подреждане на цветя (ваши)</li>
+          <li class="pf inc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> Снимка след услугата</li>
+          <li class="pf inc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> Сезонна поддръжка (4×/год.)</li>
+          <li class="pf exc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Цветя от нас</li>
+        </ul>
+        <p class="plan-note">Цената зависи от местоположението</p>
+        <button class="btn btn-gold" style="width:100%;justify-content:center">Поискай оферта</button>
+      </div>
+      <div class="plan">
+        <div class="plan-tier">Ниво 03</div>
+        <div class="plan-name">Премиум</div>
+        <div class="plan-tagline">Пълна поддръжка с цветя и аранжировки от нас</div>
+        <ul class="plan-features">
+          <li class="pf inc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> Почистване на плочата</li>
+          <li class="pf inc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> Цветни аранжировки от нас</li>
+          <li class="pf inc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> Снимка след услугата</li>
+          <li class="pf inc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> Сезонна поддръжка (6×/год.)</li>
+          <li class="pf inc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20,6 9,17 4,12"/></svg> Приоритетно обслужване</li>
+        </ul>
+        <p class="plan-note">Цената зависи от местоположението</p>
+        <button class="btn btn-outline" style="width:100%;justify-content:center">Поискай оферта</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="revs-sec sec">
+  <div class="wrap">
+    <div class="revs-header">
+      <div>
+        <div class="sec-label">Отзиви</div>
+        <h2 class="sec-title">Доверие, изградено с грижа</h2>
+      </div>
+      <div class="rating-agg">
+        <div class="rating-score">4.8</div>
+        <div>
+          <div class="stars">
+            <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+          </div>
+          <div class="rating-cnt">127 отзива</div>
+          <div class="rating-src">Google Reviews</div>
+        </div>
+      </div>
+    </div>
+    <div class="revs-grid">
+      <div class="rev-card">
+        <div class="rev-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="rev-text">В много тежкия момент за нас, АЛФА се погрижиха за всичко с изключителна деликатност и професионализъм. Не ни остави сами нито за момент.</p>
+        <div class="rev-author">
+          <div class="rev-avatar">М</div>
+          <div>
+            <div class="rev-name">Мария К.</div>
+            <div class="rev-city">Плевен · Погребение</div>
+          </div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="rev-text">Поръчахме паметник от АЛФА. Качеството надмина очакванията ни — гранитът е страхотен, гравирането е изключително прецизно. Много доволни.</p>
+        <div class="rev-author">
+          <div class="rev-avatar">Г</div>
+          <div>
+            <div class="rev-name">Георги П.</div>
+            <div class="rev-city">Левски · Паметник</div>
+          </div>
+        </div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-stars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div>
+        <p class="rev-text">Репатриацията беше организирана перфектно въпреки разстоянието. Комуникацията беше постоянна и успокояваща. Истински професионалисти.</p>
+        <div class="rev-author">
+          <div class="rev-avatar">И</div>
+          <div>
+            <div class="rev-name">Ивана С.</div>
+            <div class="rev-city">Германия · Репатриация</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="revs-cta">
+      <a href="#" class="btn btn-outline">Остави отзив в Google ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="sec" style="background:var(--bg)">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-label">История</div>
+        <h2 class="sec-title">30 години грижа</h2>
+      </div>
+    </div>
+    <div class="timeline-wrap">
+      <div class="tl-line"></div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-dot fill"></div>
+          <div class="tl-year">1994</div>
+          <div class="tl-city">Плевен</div>
+          <p class="tl-desc">Основаване на АЛФА с един офис в Плевен. Началото на мисията.</p>
+        </div>
+        <div class="tl-item" style="padding-left:24px">
+          <div class="tl-dot fill" style="left:24px"></div>
+          <div class="tl-year">2005</div>
+          <div class="tl-city">Левски</div>
+          <p class="tl-desc">Разширение с втори офис — обслужване на региона на Левски.</p>
+        </div>
+        <div class="tl-item" style="padding-left:24px">
+          <div class="tl-dot fill" style="left:24px"></div>
+          <div class="tl-year">2015</div>
+          <div class="tl-city">Севлиево</div>
+          <p class="tl-desc">Трети офис — национален обхват и утвърждаване като бранд.</p>
+        </div>
+        <div class="tl-item" style="padding-left:24px">
+          <div class="tl-dot future" style="left:24px"></div>
+          <div class="tl-year" style="color:var(--muted)">Сега →</div>
+          <div class="tl-city" style="color:var(--dim)">Нови офиси</div>
+          <p class="tl-desc" style="color:var(--muted)">Разширение чрез франчайзинг и придобивания в цяла България.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRE-NEED CTA -->
+<div class="preneed">
+  <div class="preneed-inner">
+    <div>
+      <div class="sec-label" style="margin-bottom:12px">Планирай напред</div>
+      <h2 class="preneed-title">Спестете на<br>близките си <em style="font-style:italic;color:var(--gold)">грижата</em></h2>
+      <p class="preneed-desc">Предварителното планиране е акт на любов. Когато всичко е наредено предварително, семейството може да се съсредоточи върху тъгата, а не върху организацията.</p>
+    </div>
+    <div class="preneed-actions">
+      <a href="#" class="btn btn-gold">Запишете консултация</a>
+      <a href="#" class="btn btn-outline">Изтеглете брошура (PDF)</a>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<!-- ─────────── FOOTER ─────────── -->
+<footer class="footer">
+  <div class="footer-main">
+    <div>
+      <div class="footer-logo">АЛФА</div>
+      <div class="footer-tagline">Съчувствие и Деликатност</div>
+      <p class="footer-desc">Траурни услуги с 30-годишна история. Грижим се за вас и вашите близки с уважение, деликатност и пълен професионализъм.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+        <a href="#" class="social-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7s-.3-1.9-1.2-2.7c-1.1-1.2-2.4-1.2-3-1.3C16.4 3 12 3 12 3s-4.4 0-6.8.1c-.6.1-1.9.1-3 1.3C1.3 5.1 1 7 1 7S.7 9.1.7 11.2v2c0 2 .3 4.1.3 4.1s.3 1.9 1.2 2.7c1.1 1.2 2.6 1.1 3.3 1.2C7.2 21.3 12 21.3 12 21.3s4.4 0 6.8-.2c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.7 1.2-2.7s.3-2.1.3-4.1v-2C23.3 9.1 23 7 23 7zM9.7 15V9l6.5 3-6.5 3z"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Услуги</div>
+      <ul class="footer-links">
+        <li><a href="#">Погребение</a></li>
+        <li><a href="#">Кремация</a></li>
+        <li><a href="#">Транспорт и репатриация</a></li>
+        <li><a href="#">Цветя и кетеринг</a></li>
+        <li><a href="#">Гробни места</a></li>
+        <li><a href="#">Поддръжка абонамент</a></li>
+        <li><a href="#">Планирай напред</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Каталози</div>
+      <ul class="footer-links">
+        <li><a href="#">Паметници — Триплекс</a></li>
+        <li><a href="#">Паметници — Гранит</a></li>
+        <li><a href="#">Паметници — Мрамор</a></li>
+        <li><a href="#">Ковчези</a></li>
+        <li><a href="#">Кръстове</a></li>
+        <li><a href="#">Драперия</a></li>
+        <li><a href="#">Примери гробни места</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Компания</div>
+      <ul class="footer-links">
+        <li><a href="#">За нас</a></li>
+        <li><a href="#">Офиси</a></li>
+        <li><a href="#">Отзиви</a></li>
+        <li><a href="#">ЧЗВ</a></li>
+        <li><a href="#">Контакти</a></li>
+        <li><a href="#">Калкулатор 9/40 дни</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 АЛФА Траурни Услуги ЕООД · funeralalfa.com</span>
+    <div class="footer-legal">
+      <a href="#">Политика за поверителност</a>
+      <a href="#">Бисквитки</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── NAV DROPDOWN ──
+function toggleNav(){
+  const t=document.getElementById('navTrigger');
+  const d=document.getElementById('navDrop');
+  t.classList.toggle('open');
+  d.classList.toggle('open');
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.nav-wrap')){
+    document.getElementById('navTrigger').classList.remove('open');
+    document.getElementById('navDrop').classList.remove('open');
+  }
+});
+
+// ── LANGUAGE SWITCHER ──
+document.querySelectorAll('.lang-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// ── LOCATION EXPAND ──
+function toggleLoc(id){
+  const c=document.getElementById(id);
+  c.classList.toggle('open');
+}
+
+// ── CALCULATOR ──
+function calcDates(){
+  const inp=document.getElementById('deathDate');
+  if(!inp.value){inp.focus();return;}
+  const d=new Date(inp.value);
+  const fmtBG=dt=>dt.toLocaleDateString('bg-BG',{day:'numeric',month:'long',year:'numeric'});
+  const add=(dt,days)=>{ const n=new Date(dt); n.setDate(n.getDate()+days); return n; };
+  document.getElementById('date9').textContent=fmtBG(add(d,8));
+  document.getElementById('date40').textContent=fmtBG(add(d,39));
+  document.getElementById('date1yr').textContent=fmtBG(add(d,364));
+  document.getElementById('calcResult').classList.add('show');
+}
+
+// ── PRICE REVEAL MODAL ──
+function openModal(name,tag,price){
+  document.getElementById('modalProductName').textContent=name;
+  document.getElementById('modalTag').textContent=tag;
+  document.getElementById('priceValue').textContent=price;
+  document.getElementById('stepForm').classList.remove('hidden');
+  document.getElementById('stepResult').classList.add('hidden');
+  document.getElementById('contactInput').value='';
+  document.getElementById('priceModal').classList.add('open');
+}
+function closeModal(){
+  document.getElementById('priceModal').classList.remove('open');
+}
+function revealPrice(){
+  const v=document.getElementById('contactInput').value.trim();
+  if(!v){document.getElementById('contactInput').focus();return;}
+  document.getElementById('stepForm').classList.add('hidden');
+  document.getElementById('stepResult').classList.remove('hidden');
+}
+// Close modal on overlay click
+document.getElementById('priceModal').addEventListener('click',function(e){
+  if(e.target===this) closeModal();
+});
+// ESC key
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape') closeModal();
+});
+</script>
+</body>
+</html>
