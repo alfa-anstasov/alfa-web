@@ -1,0 +1,1026 @@
+<!doctype html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Прототип v2 на сайта на АЛФА траурни услуги, за преглед от екипа.">
+<title>АЛФА · сайт v2 (прототип)</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2212%22%20fill%3D%22%230d0b09%22%2F%3E%3Cpath%20d%3D%22M32%2010v44M26%2017h12M21%2026h22M26%2047l12-6%22%20stroke%3D%22%23c8a769%22%20stroke-width%3D%223.5%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fsvg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: brand site on the existing ALFA system (warm black + candle gold, Cormorant + Jost). Editorial left-aligned grid; the hero pairs the thesis with a live commemoration slip. Dark-first; cream paper in light. */
+:root{
+  color-scheme:dark;
+  --bg:#0d0b09; --surface:#15110c; --raised:#1c1711; --line:#2d251c; --line-2:#3c3226;
+  --text:#ece4d5; --dim:#a8997f; --muted:#7d705e;
+  --gold:#c8a769; --gold-hi:#dcc08a; --on-gold:#17120b; --gold-soft:rgba(200,167,105,.10);
+  --warn:#e3a35a; --warn-soft:rgba(227,163,90,.12); --ok:#93c3a0; --ok-soft:rgba(147,195,160,.12);
+  --div-hi:#d58a6c; --div-mid:#7c7366; --div-lo:#7fa6bd; --on-div:#0d0b09;
+  --scrim:rgba(5,4,3,.66);
+  --f-d:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+  --f-b:"Jost",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --max:1180px; --r:3px;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  color-scheme:light;
+  --bg:#f3ede2; --surface:#faf6ee; --raised:#fffdf8; --line:#ddd2bf; --line-2:#cbbda5;
+  --text:#1e1912; --dim:#5d5244; --muted:#857865;
+  --gold:#86672a; --gold-hi:#6f5420; --on-gold:#fffaf0; --gold-soft:rgba(134,103,42,.09);
+  --warn:#a4621c; --warn-soft:rgba(164,98,28,.10); --ok:#3d7a4f; --ok-soft:rgba(61,122,79,.10);
+  --div-hi:#b05f3f; --div-mid:#857a69; --div-lo:#4d7c96; --on-div:#ffffff; --scrim:rgba(30,25,18,.45);
+}}
+:root[data-theme="light"]{
+  color-scheme:light;
+  --bg:#f3ede2; --surface:#faf6ee; --raised:#fffdf8; --line:#ddd2bf; --line-2:#cbbda5;
+  --text:#1e1912; --dim:#5d5244; --muted:#857865;
+  --gold:#86672a; --gold-hi:#6f5420; --on-gold:#fffaf0; --gold-soft:rgba(134,103,42,.09);
+  --warn:#a4621c; --warn-soft:rgba(164,98,28,.10); --ok:#3d7a4f; --ok-soft:rgba(61,122,79,.10);
+  --div-hi:#b05f3f; --div-mid:#857a69; --div-lo:#4d7c96; --on-div:#ffffff; --scrim:rgba(30,25,18,.45);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--bg);color:var(--text);font-family:var(--f-b);font-size:16.5px;line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:var(--max);margin:0 auto;padding-inline:24px}
+@media (max-width:560px){.wrap{padding-inline:16px}}
+h1,h2,h3,h4{font-family:var(--f-d);font-weight:500;line-height:1.1;margin:0;text-wrap:balance}
+h1{font-size:clamp(42px,6.2vw,76px);letter-spacing:-.01em}
+h2{font-size:clamp(32px,4vw,48px)}
+h3{font-size:27px}
+h4{font-size:21px;font-weight:600}
+p{margin:0}
+em{font-style:italic;color:var(--gold-hi)}
+.eyebrow{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.lede{font-size:19px;color:var(--dim);max-width:60ch;line-height:1.65}
+.muted{color:var(--dim)} .faint{color:var(--muted)} .small{font-size:14px} .tiny{font-size:12.5px}
+.num{font-variant-numeric:tabular-nums}
+.stack{display:flex;flex-direction:column;gap:16px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+
+/* prototype strip */
+.proto{background:var(--gold-soft);border-bottom:1px solid var(--line);font-size:13px;color:var(--dim)}
+.proto .wrap{display:flex;gap:8px 16px;flex-wrap:wrap;align-items:center;padding-block:7px}
+.proto b{color:var(--gold);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:11.5px}
+.proto .sp{flex:1}
+.switch{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-2);background:transparent;border-radius:99px;padding:3px 10px 3px 4px;cursor:pointer;font-size:13px;color:var(--text)}
+.switch i{width:28px;height:16px;border-radius:99px;background:var(--line-2);position:relative;transition:background .2s}
+.switch i::after{content:"";position:absolute;left:2px;top:2px;width:12px;height:12px;border-radius:50%;background:var(--text);transition:transform .2s}
+.switch[aria-pressed="true"] i{background:var(--gold)}
+.switch[aria-pressed="true"] i::after{transform:translateX(12px);background:var(--on-gold)}
+.proto a{color:var(--text);text-underline-offset:3px}
+
+/* header */
+.head{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.head .wrap{display:flex;align-items:center;gap:20px;min-height:68px}
+.brand{display:flex;flex-direction:column;text-decoration:none;line-height:1}
+.brand b{font-family:var(--f-d);font-weight:600;font-size:27px;letter-spacing:.2em}
+.brand small{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-top:5px}
+.nav{display:flex;gap:2px;margin-left:auto}
+.nav a{text-decoration:none;padding:8px 11px;font-size:15px;color:var(--dim);border-radius:var(--r)}
+.nav a:hover{color:var(--text)}
+.nav a[aria-current="page"]{color:var(--text);box-shadow:inset 0 -2px 0 var(--gold)}
+.call{display:flex;flex-direction:column;align-items:flex-end;text-decoration:none;line-height:1.15;padding-left:16px;border-left:1px solid var(--line)}
+.call b{font-size:18px;font-weight:500;letter-spacing:.02em;font-variant-numeric:tabular-nums;color:var(--gold-hi)}
+.call small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.menu-btn{display:none;margin-left:auto;border:1px solid var(--line-2);background:transparent;border-radius:var(--r);padding:7px 12px;cursor:pointer;font-size:14px}
+@media (max-width:1060px){.nav{display:none}.menu-btn{display:inline-block}.call{padding-left:12px}}
+.call b{white-space:nowrap}
+@media (max-width:460px){.call small,.brand small{display:none}.call b{font-size:16px}.brand b{font-size:23px}.head .wrap{gap:12px}}
+@media (max-width:1180px){.proto .long{display:none}}
+.mnav{border-top:1px solid var(--line);padding-block:8px 16px}
+.mnav a{display:block;padding:11px 0;text-decoration:none;border-bottom:1px solid var(--line);font-size:17px}
+
+/* buttons & fields */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line-2);background:transparent;color:var(--text);border-radius:var(--r);padding:12px 20px;cursor:pointer;text-decoration:none;font-size:15px;font-weight:500;letter-spacing:.02em;min-height:46px}
+.btn:hover{border-color:var(--gold)}
+.btn.gold{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.btn.gold:hover{background:var(--gold-hi);border-color:var(--gold-hi)}
+.btn.sm{padding:7px 12px;min-height:36px;font-size:14px}
+.btn.link{border:0;padding:0;min-height:0;color:var(--gold);text-decoration:underline;text-underline-offset:4px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:13.5px;color:var(--dim);min-width:0}
+input[type=text],input[type=tel],input[type=email],input[type=date],select,textarea{width:100%;background:var(--surface);border:1px solid var(--line-2);border-radius:var(--r);padding:11px 12px;font-size:16px;color:var(--text);min-width:0}
+textarea{min-height:92px;resize:vertical;line-height:1.5}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+.check{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--dim)}
+.check input{margin-top:4px;accent-color:var(--gold);width:17px;height:17px;flex:none}
+.fgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.fgrid .full{grid-column:1/-1}
+@media (max-width:620px){.fgrid{grid-template-columns:minmax(0,1fr)}}
+.msg{font-size:14.5px;padding:12px 14px;border-radius:var(--r);border:1px solid var(--line)}
+.msg.ok{background:var(--ok-soft);border-color:transparent;color:var(--text)}
+.msg.err{background:var(--warn-soft);border-color:transparent;color:var(--text)}
+
+/* sections */
+section.s{padding-block:76px;border-top:1px solid var(--line)}
+section.s:first-of-type{border-top:0}
+@media (max-width:620px){section.s{padding-block:52px}}
+.s-head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:24px 56px;align-items:end;margin-bottom:40px}
+@media (max-width:860px){.s-head{grid-template-columns:minmax(0,1fr)}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:28px}
+@media (max-width:560px){.panel{padding:20px}}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+@media (max-width:900px){.grid3{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){.grid2{grid-template-columns:minmax(0,1fr)}}
+
+/* hero */
+.hero{padding-block:64px 72px}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:48px 64px;align-items:start}
+@media (max-width:960px){.hero .wrap{grid-template-columns:minmax(0,1fr)}}
+.hero h1 em{display:block}
+.hero .lede{margin-top:24px}
+.hero .row{margin-top:32px}
+.urgent{display:flex;gap:10px 22px;flex-wrap:wrap;align-items:baseline;margin-top:40px;padding-top:22px;border-top:1px solid var(--line);font-size:15px;color:var(--dim)}
+.urgent b{color:var(--text);font-weight:500}
+.urgent .tel{font-size:22px;color:var(--gold-hi);font-variant-numeric:tabular-nums;letter-spacing:.02em}
+
+/* commemoration slip */
+.slip{background:var(--raised);border:1px solid var(--line-2);padding:8px;border-radius:2px}
+.slip-in{border:1px solid var(--line);padding:26px 26px 22px}
+@media (max-width:560px){.slip-in{padding:20px 16px 16px}}
+.slip-h{display:flex;gap:14px;align-items:center}
+.slip-h svg{flex:none;color:var(--gold)}
+.slip-h h3{font-size:25px;letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.slip .datein{display:grid;grid-template-columns:minmax(0,1fr);gap:6px;margin-top:18px}
+.pom{display:grid;grid-template-columns:92px minmax(0,1fr) auto;gap:4px 14px;align-items:baseline;padding:12px 0;border-top:1px solid var(--line)}
+.pom:first-child{border-top:0}
+.pom .k{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.pom .d{font-family:var(--f-d);font-size:22px;line-height:1.2}
+.pom .w{font-size:13px;color:var(--muted);white-space:nowrap}
+.pom .sub{grid-column:2/-1;font-size:13px;color:var(--muted)}
+.pom .sub a{color:var(--dim)}
+@media (max-width:420px){.pom{grid-template-columns:minmax(0,1fr) auto}.pom .k{grid-column:1/-1}.pom .sub{grid-column:1/-1}}
+.slip-zad{margin-top:14px;padding-top:12px;border-top:1px double var(--line-2)}
+.slip-zad h4{font-size:17px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px}
+.slip-foot{margin-top:16px;font-size:12.5px;color:var(--muted);text-align:center;letter-spacing:.04em}
+
+/* three paths */
+.paths{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--line)}
+.path{padding:30px 28px 28px;display:flex;flex-direction:column;gap:14px;border-left:1px solid var(--line);text-decoration:none}
+.path:first-child{border-left:0}
+.path:hover{background:var(--surface)}
+.path .when{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.path h3{font-size:31px}
+.path p{color:var(--dim)}
+.path .go{margin-top:auto;color:var(--gold);font-size:15px}
+.path.now .when{color:var(--warn)}
+@media (max-width:900px){.paths{grid-template-columns:minmax(0,1fr)}.path{border-left:0;border-top:1px solid var(--line)}.path:first-child{border-top:0}}
+
+/* year after timeline */
+.year{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;position:relative}
+.year::before{content:"";position:absolute;left:0;right:0;top:27px;height:1px;background:var(--line-2)}
+.ystep{position:relative;padding-right:20px}
+.ystep .dot{width:13px;height:13px;border-radius:50%;background:var(--bg);border:2px solid var(--gold);position:relative;top:21px}
+.ystep .t{font-family:var(--f-d);font-size:30px;margin-top:38px;line-height:1}
+.ystep .t small{font-size:16px;color:var(--muted);font-family:var(--f-b);margin-left:4px}
+.ystep p{margin-top:10px;font-size:14.5px;color:var(--dim)}
+.ystep ul{margin:12px 0 0;padding:0;list-style:none;font-size:14px}
+.ystep li{padding:3px 0;color:var(--text)}
+.ystep li::before{content:"— ";color:var(--gold)}
+@media (max-width:900px){.year{grid-template-columns:minmax(0,1fr);gap:26px}.year::before{left:6px;right:auto;top:0;bottom:0;width:1px;height:auto}.ystep{padding-left:34px;padding-right:0}.ystep .dot{position:absolute;left:0;top:8px}.ystep .t{margin-top:0}}
+
+/* cards */
+.card{border:1px solid var(--line);border-radius:var(--r);padding:24px;display:flex;flex-direction:column;gap:12px;background:var(--surface);min-width:0}
+.card h3{font-size:26px}
+.card p{color:var(--dim);font-size:15.5px}
+.card .foot{margin-top:auto;padding-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.pricechip{display:inline-flex;gap:6px;align-items:center;font-size:13.5px;color:var(--dim);border:1px dashed var(--line-2);padding:5px 10px;border-radius:99px}
+.tier{position:relative}
+.tier.rec{border-color:var(--gold)}
+.tier .badge{position:absolute;top:-11px;left:22px;background:var(--gold);color:var(--on-gold);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:2px}
+.list-dash{margin:0;padding:0;list-style:none}
+.list-dash li{padding:7px 0;border-top:1px solid var(--line);font-size:15.5px}
+.list-dash li:first-child{border-top:0}
+.steps{counter-reset:st;display:grid;gap:0;margin:0;padding:0;list-style:none}
+.steps li{counter-increment:st;display:grid;grid-template-columns:44px minmax(0,1fr);gap:16px;padding:18px 0;border-top:1px solid var(--line)}
+.steps li:first-child{border-top:0}
+.steps li::before{content:counter(st);font-family:var(--f-d);font-size:30px;color:var(--gold);line-height:1}
+.steps b{display:block;font-weight:500;margin-bottom:2px}
+.steps span{color:var(--dim);font-size:15.5px}
+.note{font-size:13.5px;color:var(--muted);border-left:2px solid var(--line-2);padding-left:12px}
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px 64px;align-items:start}
+@media (max-width:900px){.split{grid-template-columns:minmax(0,1fr)}}
+.page-hero{padding-block:64px 44px;border-bottom:1px solid var(--line)}
+.page-hero .lede{margin-top:20px}
+.offices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+@media (max-width:900px){.offices{grid-template-columns:minmax(0,1fr)}}
+.office h3{font-size:34px}
+.office dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px 14px;margin:6px 0 0;font-size:15px}
+.office dt{color:var(--muted)}
+.office dd{margin:0}
+.ph{color:var(--muted);font-style:italic}
+.quote{font-family:var(--f-d);font-size:23px;line-height:1.35;font-style:italic}
+.quote-by{font-size:13.5px;color:var(--muted);margin-top:10px}
+.empty{border:1px dashed var(--line-2);border-radius:var(--r);padding:28px;color:var(--dim);font-size:15px}
+.faq details{border-top:1px solid var(--line);padding:16px 0}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;font-size:18px;font-family:var(--f-d);font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::after{content:"+";color:var(--gold);font-family:var(--f-b)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{margin-top:10px;color:var(--dim);max-width:66ch}
+
+/* footer */
+footer{border-top:1px solid var(--line);padding-block:48px 40px;margin-top:0;font-size:14.5px;color:var(--dim)}
+footer .cols{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:28px}
+@media (max-width:820px){footer .cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+footer h4{font-family:var(--f-b);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:10px}
+footer a{display:block;text-decoration:none;padding:3px 0}
+footer a:hover{color:var(--text)}
+footer .legal{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;gap:8px 20px;flex-wrap:wrap}
+
+/* overlay & drawer */
+.ov{position:fixed;inset:0;background:var(--scrim);z-index:60;display:flex;align-items:flex-end;justify-content:center;padding:16px}
+@media (min-width:640px){.ov{align-items:center}}
+.modal{background:var(--raised);border:1px solid var(--line-2);border-radius:var(--r);width:min(480px,100%);padding:28px;max-height:calc(100% - 20px);overflow:auto}
+.modal h3{font-size:28px}
+.bigprice{font-family:var(--f-d);font-size:46px;color:var(--gold-hi);line-height:1.1;font-variant-numeric:tabular-nums}
+.drawer{position:fixed;z-index:55;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(430px,calc(100% - 32px));max-height:min(78vh,720px);overflow:auto;background:var(--raised);border:1px solid var(--gold);border-radius:var(--r);box-shadow:0 18px 50px rgba(0,0,0,.35)}
+.drawer-h{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--raised)}
+.drawer-h b{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.drawer-b{padding:16px 18px 18px;display:flex;flex-direction:column;gap:14px;font-size:14px}
+.mail{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);font-size:13.5px}
+.mail .mh{padding:10px 12px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 10px;color:var(--dim)}
+.mail .mh b{color:var(--text);font-weight:500}
+.mail .mb{padding:10px 12px;white-space:pre-wrap;line-height:1.5;overflow-wrap:anywhere}
+.pult{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:12px}
+.pult .ph2{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:8px}
+.pult dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 12px;margin:0;font-size:13.5px}
+.pult dt{color:var(--muted)} .pult dd{margin:0;overflow-wrap:anywhere}
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:500;letter-spacing:.04em;padding:3px 9px;border-radius:99px;background:var(--gold-soft);color:var(--gold-hi);white-space:nowrap}
+.chip.warn{background:var(--warn-soft);color:var(--warn)} .chip.ok{background:var(--ok-soft);color:var(--ok)} .chip.mute{background:transparent;border:1px solid var(--line-2);color:var(--dim)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:var(--r);font-size:14px;z-index:80;max-width:calc(100% - 32px)}
+
+/* feedback (family) */
+.fb{max-width:680px}
+.q{padding:26px 0;border-top:1px solid var(--line)}
+.q:first-of-type{border-top:0}
+.q h3{font-size:25px;margin-bottom:6px}
+.q .hint{font-size:14px;color:var(--muted);margin-bottom:14px}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choice{border:1px solid var(--line-2);background:var(--surface);border-radius:var(--r);padding:12px 16px;cursor:pointer;min-height:48px;font-size:15.5px;text-align:left}
+.choice:hover{border-color:var(--gold)}
+.choice[aria-pressed="true"]{border-color:var(--gold);background:var(--gold-soft);color:var(--text);box-shadow:inset 0 0 0 1px var(--gold)}
+.scale{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+.scale .choice{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center;padding:12px 6px}
+.scale .choice b{font-family:var(--f-d);font-size:28px;font-weight:600;line-height:1}
+.scale .choice span{font-size:12.5px;color:var(--dim)}
+@media (max-width:460px){.scale .choice span{font-size:11px}}
+
+/* inbox (staff) */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:28px;overflow-x:auto}
+.tabs button{border:0;background:transparent;padding:12px 14px;cursor:pointer;color:var(--dim);font-size:15px;white-space:nowrap;box-shadow:inset 0 -2px 0 transparent}
+.tabs button[aria-selected="true"]{color:var(--text);box-shadow:inset 0 -2px 0 var(--gold)}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+@media (max-width:820px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi{border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;background:var(--surface)}
+.kpi .v{font-family:var(--f-d);font-size:38px;line-height:1;font-variant-numeric:tabular-nums}
+.kpi .l{font-size:13px;color:var(--dim);margin-top:6px}
+.lead{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 16px;padding:16px 0;border-top:1px solid var(--line)}
+.lead:first-child{border-top:0}
+.lead .meta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:13px;color:var(--muted)}
+.lead .who{font-weight:500;margin-top:4px}
+.lead .what{font-size:14.5px;color:var(--dim);margin-top:2px;overflow-wrap:anywhere}
+.lead .acts{display:flex;gap:6px;align-items:flex-start;flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:640px){.lead{grid-template-columns:minmax(0,1fr)}.lead .acts{justify-content:flex-start}}
+.seg{display:inline-flex;border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden}
+.seg button{border:0;background:transparent;padding:6px 10px;font-size:13px;cursor:pointer;color:var(--dim)}
+.seg button+button{border-left:1px solid var(--line-2)}
+.seg button[aria-pressed="true"]{background:var(--gold-soft);color:var(--text)}
+.bars{display:flex;flex-direction:column;gap:12px}
+.bar-row{display:grid;grid-template-columns:150px minmax(0,1fr) 44px;gap:12px;align-items:center;font-size:14px}
+@media (max-width:520px){.bar-row{grid-template-columns:96px minmax(0,1fr) 36px;font-size:13px}}
+.bar-track{height:14px;position:relative}
+.bar-fill{height:100%;background:var(--gold);border-radius:0 4px 4px 0;min-width:2px}
+.stack100{display:flex;height:22px;gap:2px}
+.stack100 span{display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:600;color:var(--on-div);min-width:0;overflow:hidden;white-space:nowrap}
+.stack100 span:first-child{border-radius:0}
+.stack100 span:last-child{border-radius:0 4px 4px 0}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--dim);margin-bottom:14px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r)}
+table.sop{border-collapse:collapse;width:100%;min-width:760px;font-size:14.5px}
+table.sop th,table.sop td{text-align:left;vertical-align:top;padding:14px 16px;border-top:1px solid var(--line)}
+table.sop th{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;border-top:0;background:var(--surface)}
+table.sop td:first-child{font-family:var(--f-d);font-size:19px;font-weight:600;width:18%}
+table.sop .new{color:var(--gold-hi)}
+</style>
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+<div class="proto" id="proto"><div class="wrap">
+  <b>Прототип v2</b>
+  <span class="long">За преглед от екипа. Цените са от 2017 и 2023 г. и още не са прегледани.</span>
+  <span class="sp"></span>
+  <button class="switch" id="btsBtn" aria-pressed="false" type="button"><i aria-hidden="true"></i>Какво вижда офисът</button>
+  <a href="#vhodyashti" data-route="vhodyashti">Входящи</a>
+  <a href="#" id="noteLink">Бележка</a>
+  <a href="../">Версия 1</a>
+</div></div>
+
+<header class="head">
+  <div class="wrap">
+    <a class="brand" href="#nachalo" data-route="nachalo"><b>АЛФА</b><small>траурни услуги · от 1994</small></a>
+    <nav class="nav" id="nav" aria-label="Основно меню"></nav>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mnav">Меню</button>
+    <a class="call" href="tel:+359888715021"><b>0888 715 021</b><small>денонощно</small></a>
+  </div>
+  <div class="wrap mnav" id="mnav" hidden></div>
+</header>
+
+<main id="main"></main>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div class="stack" style="gap:10px">
+        <div class="brand"><b>АЛФА</b><small>траурни услуги · от 1994</small></div>
+        <p>Съчувствие и деликатност. Плевен, Левски и Севлиево.</p>
+        <p><span class="num" style="color:var(--text);font-size:18px">0888 715 021</span><br>office@funeralalfa.com</p>
+      </div>
+      <div><h4>Преди и след</h4><a href="#planirai-napred" data-route="planirai-napred">Планирай напред</a><a href="#sled-pogrebenieto" data-route="sled-pogrebenieto">След погребението</a><a href="#sled-pogrebenieto" data-route="sled-pogrebenieto" data-anchor="kalendar">Календар на помените</a><a href="#pametnici" data-route="pametnici">Паметници</a></div>
+      <div><h4>Услуги</h4><a href="#uslugi" data-route="uslugi">Погребение</a><a href="#uslugi" data-route="uslugi" data-anchor="kremaciya">Кремация</a><a href="#uslugi" data-route="uslugi" data-anchor="transport">Транспорт и репатриация</a><a href="#uslugi" data-route="uslugi" data-anchor="parviyat-chas">Първият час</a></div>
+      <div><h4>АЛФА</h4><a href="#za-nas" data-route="za-nas">За нас</a><a href="#ofisi" data-route="ofisi">Офиси</a><a href="#otzivi" data-route="otzivi">Отзиви</a><a href="#kontakti" data-route="kontakti">Контакти</a></div>
+    </div>
+    <div class="legal"><span>© 2026 „АЛФА ГРУП“ ООД · ЕИК 114130026</span><span>Политика за поверителност (предстои)</span><span>Бисквитки (предстои)</span></div>
+  </div>
+</footer>
+
+<div id="ovRoot"></div>
+<div id="drawerRoot"></div>
+
+<script>
+"use strict";
+/* ───── data ───── */
+const BGN=1.95583;
+const toEur=b=>Math.round(b/BGN*100)/100;
+const PHONE="0888 715 021";
+const EMAIL="office@funeralalfa.com";
+const OFFICES=[
+  {id:"PL",name:"Плевен",opened:1994,role:"централен офис",addr:"ул. „Борис Шивачев“ № 5",addrNote:"адресът е за потвърждение"},
+  {id:"LE",name:"Левски",opened:2005,role:"",addr:"",addrNote:""},
+  {id:"SE",name:"Севлиево",opened:2015,role:"",addr:"",addrNote:""}];
+const officeName=id=>(OFFICES.find(o=>o.id===id)||{}).name||"—";
+/* gated prices: from the ALFA price lists (лв), converted at the fixed rate; same list as the Pult */
+const GATED={
+  burial:{name:"Цялостна организация на погребение",bgn:[95,180],year:2023,note:"Ковчегът, транспортът и таксите на гробищния парк се добавят според избора ви."},
+  cr_sof:{name:"Кремация в София с транспорт и организация",bgn:810,year:2023,note:"Кремация 380 лв, транспорт 250 лв, организация 180 лв по ценоразписа."},
+  cr_plv:{name:"Кремация в Пловдив с транспорт и организация",bgn:740,year:2023,note:"Кремация 420 лв, транспорт 140 лв, организация 180 лв по ценоразписа."},
+  cr_var:{name:"Кремация във Варна с транспорт и организация",bgn:890,year:2023,note:"Кремация 440 лв, транспорт 270 лв, организация 180 лв по ценоразписа."},
+  repat:{name:"Документи за репатриация на тленни останки",bgn:300,year:2017,note:"Транспортът се изчислява отделно на километър."},
+  km:{name:"Транспорт на тленни останки",bgn:0.80,unit:"км",year:2023},
+  cold:{name:"Хладилна камера АЛФА",bgn:40,unit:"денонощие",year:2023},
+  wreath:{name:"Изкуствен венец",bgn:[30,60],year:2023,note:"От малък кръг до голям венец на крачета. Лента с надпис: 10 лв по ценоразписа."},
+  pomen:{name:"Комплект за помен: чиния жито, погача, вино и вода",bgn:20,year:2023},
+  podavka:{name:"Подавка в пликче",bgn:2.55,unit:"бр.",year:2023,note:"В голяма пластмасова кутия: 2,80 лв по ценоразписа."},
+  clean:{name:"Почистване на гробно място",bgn:30,year:2017},
+  build:{name:"Изграждане на гробно място със суха зидария",bgn:350,year:2017}
+};
+const LEAD_T={reveal:"Поиска цена",callback:"Обадете ми се",preneed:"Планирай напред",reminder:"Напомняне за помените",aftercare:"След погребението",monument:"Паметник",contact:"Съобщение"};
+const ROUTES=["nachalo","planirai-napred","sled-pogrebenieto","uslugi","pametnici","ofisi","za-nas","otzivi","kontakti","otzyv","vhodyashti"];
+const NAV=[["planirai-napred","Планирай напред"],["sled-pogrebenieto","След погребението"],["uslugi","Услуги"],["pametnici","Паметници"],["ofisi","Офиси"],["za-nas","За нас"],["otzivi","Отзиви"]];
+const MONTHS=["януари","февруари","март","април","май","юни","юли","август","септември","октомври","ноември","декември"];
+const WDL=["неделя","понеделник","вторник","сряда","четвъртък","петък","събота"];
+
+/* ───── helpers ───── */
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmtEur=n=>new Intl.NumberFormat("bg-BG",{style:"currency",currency:"EUR",minimumFractionDigits:2,maximumFractionDigits:2}).format(n);
+const pad=n=>String(n).padStart(2,"0");
+const isoD=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const parseD=s=>{if(!s)return null;const [y,m,d]=String(s).slice(0,10).split("-").map(Number);return y&&m&&d?new Date(y,m-1,d):null;};
+const addDays=(d,n)=>new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);
+const addMonths=(d,n)=>{const y=d.getFullYear(),m=d.getMonth()+n;const last=new Date(y,m+1,0).getDate();return new Date(y,m,Math.min(d.getDate(),last));};
+const today0=()=>{const t=new Date();return new Date(t.getFullYear(),t.getMonth(),t.getDate());};
+const daysBetween=(a,b)=>Math.round((b-a)/86400000);
+const fmtLong=d=>`${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+const prevSaturday=d=>{const w=d.getDay();return w===6?d:addDays(d,-(w+1));};
+function orthodoxEaster(y){const a=y%4,b=y%7,c=y%19,d=(19*c+15)%30,e=(2*a+4*b-d+34)%7;const mo=Math.floor((d+e+114)/31),da=((d+e+114)%31)+1;return addDays(new Date(y,mo-1,da),13);}
+function zadushnici(y){const e=orthodoxEaster(y);const n8=new Date(y,10,8);const back=((n8.getDay()-6+7)%7)||7;
+  return [{l:"Месна задушница",date:addDays(e,-57)},{l:"Черешова задушница",date:addDays(e,48)},{l:"Архангелова задушница",date:addDays(n8,-back)}];}
+function nextZad(from,n=3){const out=[];for(let y=from.getFullYear();out.length<n;y++)for(const z of zadushnici(y))if(z.date>=from&&out.length<n)out.push(z);return out;}
+function pomens(death){return [{k:"9 дни",l:"Деветдневен помен",date:addDays(death,8)},{k:"40 дни",l:"Четиридесетдневен помен",date:addDays(death,39)},{k:"6 месеца",l:"Шестмесечен помен",date:addMonths(death,6)},{k:"1 година",l:"Годишен помен",date:addMonths(death,12)}];}
+const rel=n=>n===0?"днес":n===1?"утре":n===-1?"вчера":n>1?`след ${n} дни`:"мина";
+function gcal(title,d){const s=`${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}`;const e=addDays(d,1);const t=`${e.getFullYear()}${pad(e.getMonth()+1)}${pad(e.getDate())}`;
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${s}/${t}&details=${encodeURIComponent("АЛФА траурни услуги · "+PHONE)}`;}
+function priceText(g){const v=Array.isArray(g.bgn)?`от ${fmtEur(toEur(g.bgn[0]))} до ${fmtEur(toEur(g.bgn[1]))}`:fmtEur(toEur(g.bgn));return g.unit?`${v} / ${g.unit}`:v;}
+function relTime(iso){const m=Math.round((Date.now()-new Date(iso))/60000);if(m<1)return"току-що";if(m<60)return`преди ${m} мин`;const h=Math.round(m/60);if(h<24)return`преди ${h} ч`;const d=Math.round(h/24);return d===1?"вчера":`преди ${d} дни`;}
+function toast(t){const el=document.createElement("div");el.className="toast";el.setAttribute("role","status");el.textContent=t;document.body.appendChild(el);setTimeout(()=>el.remove(),2800);}
+const lsGet=k=>{try{return localStorage.getItem(k);}catch(e){return null;}};
+const lsSet=(k,v)=>{try{localStorage.setItem(k,v);}catch(e){}};
+const crossSvg=(h=34)=>`<svg width="${h*0.6}" height="${h}" viewBox="0 0 30 50" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="3"><path d="M15 2v46M9 9h12M4 18h22M9 41l12-6"/></svg>`;
+
+/* ───── state ───── */
+const S={route:"nachalo",param:null,bts:lsGet("alfa-sait-bts")==="1",calcDate:"",gate:null,last:null,leads:[],feedback:[],dbState:"init",canWrite:null,tab:"leads",leadFilter:"new",fb:null,fbDone:false,menu:false};
+let db=null,user=null;
+
+/* ───── persistence ───── */
+function clean(o){const r={};for(const[k,v]of Object.entries(o)){if(v===""||v==null)continue;if(Array.isArray(v)&&!v.length)continue;r[k]=v;}return r;}
+/* demo mode: with no shared db (e.g. the GitHub copy) tries are kept in this browser only */
+const LOCAL_KEY="alfa-sait-demo";
+function saveLocal(){lsSet(LOCAL_KEY,JSON.stringify({leads:S.leads.slice(0,100),feedback:S.feedback.slice(0,200)}));}
+function loadLocal(){try{const o=JSON.parse(lsGet(LOCAL_KEY)||"{}");S.leads=Array.isArray(o.leads)?o.leads:[];S.feedback=Array.isArray(o.feedback)?o.feedback:[];}catch(e){S.leads=[];S.feedback=[];}}
+async function write(coll,data){
+  if(!db){
+    if(S.dbState!=="none") return false;
+    (coll==="leads"?S.leads:S.feedback).unshift({...data,id:"L"+Date.now().toString(36)+Math.random().toString(36).slice(2,6)});
+    saveLocal();return "local";
+  }
+  if(S.canWrite===false) return false;
+  try{await db.collection(coll).add(data);return true;}
+  catch(e){if(e?.code==="invalid_argument"){S.canWrite=false;}return false;}
+}
+async function updateDoc(coll,id,patch){
+  if(!db){const d=(coll==="leads"?S.leads:S.feedback).find(x=>x.id===id);if(!d)return false;Object.assign(d,patch);saveLocal();rerenderKeepScroll();return true;}
+  await db.doc(coll+"/"+id).update(patch);return true;
+}
+async function saveLead(type,data){
+  const lead=clean({type,...data,office:data.office||"PL",page:S.route,createdAt:new Date().toISOString(),status:"new",source:"сайт (прототип)"});
+  const saved=await write("leads",lead);
+  S.last={...lead,saved};
+  if(S.bts) renderDrawer();
+  return saved;
+}
+
+/* ───── routing ───── */
+function parseHash(){
+  const h=(location.hash||"").replace(/^#/,"");
+  const m=h.match(/^otzyv(?:-(PL|LE|SE))?(?:-([A-Za-z0-9]{4,24}))?$/);
+  if(m) return {route:"otzyv",param:{office:m[1]||"",ref:m[2]||""}};
+  return {route:ROUTES.includes(h)?h:"nachalo",param:null};
+}
+function go(route,param=null,anchor=null){
+  S.route=route;S.param=param;S.menu=false;S.gate=null;
+  if(route==="otzyv"&&!S.fb) S.fb=newFb(param);
+  const h=route==="otzyv"&&param?["otzyv",param.office,param.ref].filter(Boolean).join("-"):route;
+  try{if(location.hash.replace(/^#/,"")!==h) history.pushState(null,"","#"+h);}catch(e){}
+  render();
+  if(anchor){setTimeout(()=>{const el=document.getElementById(anchor);if(el)el.scrollIntoView({block:"start"});},30);} else window.scrollTo(0,0);
+}
+window.addEventListener("popstate",()=>{const p=parseHash();S.route=p.route;S.param=p.param;if(p.route==="otzyv"&&!S.fb)S.fb=newFb(p.param);render();});
+window.addEventListener("hashchange",()=>{const p=parseHash();if(p.route!==S.route){S.route=p.route;S.param=p.param;if(p.route==="otzyv"&&!S.fb)S.fb=newFb(p.param);render();window.scrollTo(0,0);}});
+
+/* ───── shared components ───── */
+function gateBtn(key,label="Виж цената"){return `<button class="btn sm" type="button" data-gate="${key}">${esc(label)}</button>`;}
+function officeSelect(id,val="PL"){return `<select id="${id}" name="office">${OFFICES.map(o=>`<option value="${o.id}" ${o.id===val?"selected":""}>${o.name}</option>`).join("")}</select>`;}
+function consent(id){return `<label class="check full"><input type="checkbox" id="${id}" name="consent" value="1"><span>Съгласен/съгласна съм АЛФА да използва данните ми, за да се свърже с мен по това запитване.</span></label>`;}
+function calcSlip(id,heading=true){
+  return `<div class="slip"><div class="slip-in">
+    ${heading?`<div class="slip-h">${crossSvg(40)}<div><h3>Календар на помените</h3><p class="small faint">Денят на смъртта се брои за първи ден.</p></div></div>`:""}
+    <label class="f datein" for="${id}">Дата на смъртта<input type="date" id="${id}" data-calc="1" value="${esc(S.calcDate)}" max="${isoD(today0())}"></label>
+    <div class="calc-out" style="margin-top:8px">${calcOut()}</div>
+    <p class="slip-foot">АЛФА · ${PHONE} · денонощно</p></div></div>`;
+}
+function calcOut(){
+  const d=parseD(S.calcDate), t=today0();
+  const rows=d?pomens(d).map(p=>{const n=daysBetween(t,p.date);const sat=prevSaturday(p.date);
+      return `<div class="pom"><span class="k">${p.k}</span><span class="d">${WDL[p.date.getDay()]}, ${fmtLong(p.date)}</span><span class="w">${rel(n)}</span>
+        <span class="sub">${p.date.getDay()!==6?`Ако предпочитате събота: ${fmtLong(sat)}. `:""}${n>=0?`<a href="${gcal(p.l,p.date)}" target="_blank" rel="noopener">Добави в Google Календар ↗</a>`:""}</span></div>`;}).join("")
+    :`<p class="small muted" style="padding:12px 0 4px">Въведете датата и ще видите кога се падат помените на 9-ия и 40-ия ден, на 6-ия месец и годишнината.</p>`;
+  const from=d?new Date(Math.max(+addDays(d,1),+t)):t;
+  const zs=nextZad(from,3);
+  return `<div>${rows}</div><div class="slip-zad"><h4>Задушници</h4>${zs.map(z=>`<div class="pom"><span class="k">${z.l.replace(" задушница","")}</span><span class="d">${WDL[z.date.getDay()]}, ${fmtLong(z.date)}</span><span class="w">${rel(daysBetween(t,z.date))}</span></div>`).join("")}</div>`;
+}
+function pageHero(eyebrow,title,lede,extra=""){return `<section class="page-hero"><div class="wrap"><p class="eyebrow">${eyebrow}</p><h1 style="margin-top:14px">${title}</h1>${lede?`<p class="lede">${lede}</p>`:""}${extra}</div></section>`;}
+
+/* ───── pages ───── */
+function pHome(){
+  const approved=S.feedback.filter(f=>f.approved&&f.publish&&f.text).slice(0,3);
+  return `
+  <section class="hero"><div class="wrap">
+    <div>
+      <p class="eyebrow">Плевен · Левски · Севлиево · от 1994 г.</p>
+      <h1 style="margin-top:18px">Помним датите<em>заедно с вас.</em></h1>
+      <p class="lede">Организираме погребения денонощно. След това оставаме до семейството за помените, некролозите и грижата за гроба. А който иска да подреди нещата отрано, може да запише желанията си при нас.</p>
+      <div class="row"><a class="btn gold" href="#planirai-napred" data-route="planirai-napred">Планирай напред</a><a class="btn" href="#sled-pogrebenieto" data-route="sled-pogrebenieto">След погребението</a></div>
+      <div class="urgent"><span><b>Някой почина току-що?</b> Обадете се, и в трите града:</span><span class="tel">${PHONE}</span><a href="#uslugi" data-route="uslugi" data-anchor="parviyat-chas" class="small" style="color:var(--gold)">Какво да направите в първия час →</a></div>
+    </div>
+    ${calcSlip("calcHome")}
+  </div></section>
+
+  <section class="s"><div class="wrap">
+    <div class="paths">
+      <a class="path" href="#planirai-napred" data-route="planirai-napred"><span class="when">Преди</span><h3>Планирай напред</h3><p>Записваме желанията ви за ритуала, мястото и некролога. Получавате копие, а близките ви знаят какво сте искали.</p><span class="go">Как става →</span></a>
+      <a class="path now" href="#uslugi" data-route="uslugi" data-anchor="parviyat-chas"><span class="when">Сега</span><h3>Нужна е помощ</h3><p>Идваме денонощно. Поемаме пренасянето, хладилната камера, документите и цялата организация.</p><span class="go">Първият час →</span></a>
+      <a class="path" href="#sled-pogrebenieto" data-route="sled-pogrebenieto"><span class="when">След</span><h3>Помени и гроб</h3><p>Некролози, жито и подавки, почистване на гроба преди задушница. Напомняме ви преди всяка дата.</p><span class="go">Какво поемаме →</span></a>
+    </div>
+  </div></section>
+
+  <section class="s"><div class="wrap">
+    <div class="s-head"><div><p class="eyebrow">Годината след погребението</p><h2 style="margin-top:12px">Пет дати, които семейството не бива да пропуска</h2></div>
+      <p class="lede">Първата година носи поне четири помена и задушници. Можем да поемем каквото пожелаете. Ако желаете, ще ви се обадим седмица преди всяка дата.</p></div>
+    ${yearTimeline()}
+    <div class="row" style="margin-top:36px"><button class="btn gold" type="button" data-scroll="napomnyane">Искам напомняне преди всяка дата</button><a class="btn" href="#sled-pogrebenieto" data-route="sled-pogrebenieto">Всичко за помените</a></div>
+    <div id="napomnyane" style="margin-top:36px">${reminderForm("remHome")}</div>
+  </div></section>
+
+  <section class="s"><div class="wrap split">
+    <div><p class="eyebrow">Планирай напред</p><h2 style="margin-top:12px">Решенията, които иначе остават за близките</h2>
+      <p class="lede" style="margin-top:18px">Един разговор е достатъчен, за да запишем какво искате: погребение или кремация, кой храм, кое гробище, каква снимка за некролога. Планирането не изисква плащане.</p>
+      <div class="row" style="margin-top:28px"><a class="btn gold" href="#planirai-napred" data-route="planirai-napred">Запишете разговор</a></div></div>
+    <ol class="steps">
+      <li><div><b>Разговор</b><span>В офиса, у дома или по телефона, когато ви е удобно.</span></div></li>
+      <li><div><b>Записваме желанията ви</b><span>Ритуал, място, облекло, некролог, кого да уведомим.</span></div></li>
+      <li><div><b>Копие за вас и близките</b><span>Един екземпляр остава в АЛФА. Променяте го, когато пожелаете.</span></div></li>
+    </ol>
+  </div></section>
+
+  <section class="s"><div class="wrap">
+    <div class="s-head"><div><p class="eyebrow">Офиси</p><h2 style="margin-top:12px">Три града, един телефон</h2></div><p class="lede">Денонощният телефон отговаря за трите офиса. Ако офисът в града ви е затворен, идва екипът от най-близкия.</p></div>
+    ${officeCards()}
+  </div></section>
+
+  <section class="s"><div class="wrap split">
+    <div><p class="eyebrow">Отзиви</p><h2 style="margin-top:12px">Питаме всяко семейство</h2>
+      <p class="lede" style="margin-top:18px">След деветия ден всяко семейство получава картичка с няколко въпроса. Тук публикуваме само думи, за които семейството е дало съгласие.</p>
+      <div class="row" style="margin-top:24px"><a class="btn" href="#otzivi" data-route="otzivi">Всички отзиви</a></div></div>
+    <div class="stack">${approved.length?approved.map(quoteHtml).join(""):`<div class="empty">Първите отзиви от семейства ще се появят тук, когато бъдат одобрени за публикуване.</div>`}</div>
+  </div></section>`;
+}
+function yearTimeline(){
+  const s=[["9","дни","Помен на гроба.",["некролог за 9 дни","жито и подавки"]],["40","дни","Четиридесетдневен помен.",["некролог за 40 дни","жито и подавки","почистване на гроба"]],["6","месеца","Шестмесечен помен.",["некролог","почистване на гроба"]],["1","година","Годишен помен.",["некролог и подавки","паметник и гробно място"]],["3×","в годината","Задушници: Месна, Черешова, Архангелова.",["почистване и цветя на гроба"]]];
+  return `<div class="year">${s.map(([n,u,p,li])=>`<div class="ystep"><span class="dot"></span><div class="t">${n}<small>${u}</small></div><p>${p}</p><ul>${li.map(x=>`<li>${x}</li>`).join("")}</ul></div>`).join("")}</div>`;
+}
+function reminderForm(id){
+  return `<form class="panel" data-form="reminder" novalidate><div class="split" style="gap:24px 48px">
+    <div><h3>Напомняне преди помените</h3><p class="muted" style="margin-top:8px">Ще ви се обадим около седмица преди 40-ия ден, 6-ия месец, годишнината и задушниците. Ако желаете, ще поемем жито, подавки, некролог или почистване на гроба.</p></div>
+    <div class="fgrid">
+      <label class="f">Вашето име<input type="text" id="${id}-name" name="name" autocomplete="name"></label>
+      <label class="f">Телефон<input type="tel" id="${id}-phone" name="phone" autocomplete="tel"></label>
+      <label class="f">Дата на смъртта на близкия<input type="date" id="${id}-date" name="deathDate" value="${esc(S.calcDate)}" max="${isoD(today0())}"></label>
+      <label class="f">Офис${officeSelect(id+"-office")}</label>
+      ${consent(id+"-consent")}
+      <div class="full row"><button class="btn gold" type="submit">Искам напомняне</button></div>
+      <div class="full msg-slot"></div>
+    </div></div></form>`;
+}
+function officeCards(){
+  return `<div class="offices">${OFFICES.map(o=>`<div class="card office"><p class="eyebrow">От ${o.opened}${o.role?` · ${o.role}`:""}</p><h3>${o.name}</h3>
+    <dl><dt>Адрес</dt><dd>${o.addr?esc(o.addr)+(o.addrNote?` <span class="ph">(${o.addrNote})</span>`:""):`<span class="ph">[адрес — предстои]</span>`}</dd>
+      <dt>Телефон</dt><dd class="num">${PHONE}, денонощно</dd>
+      <dt>Офис</dt><dd><span class="ph">[работно време — предстои]</span></dd></dl>
+    <div class="foot"><a class="btn sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("АЛФА траурни услуги "+o.name)}">Карта ↗</a></div></div>`).join("")}</div>`;
+}
+function quoteHtml(f){return `<figure class="card" style="margin:0"><blockquote class="quote" style="margin:0">„${esc(f.text)}“</blockquote><figcaption class="quote-by">${esc(f.initials||"Семейство")} · ${esc(officeName(f.office))}${f.service?` · ${esc(SERVICE_L[f.service]||"")}`:""}</figcaption></figure>`;}
+
+function pPreneed(){
+  return pageHero("Планирай напред","Запишете желанията си, <em>за да не гадаят близките.</em>","Повечето семейства решават всичко за един-два дни, под напрежение. Един спокоен разговор сега им спестява тези решения. Планирането не изисква плащане и не ви задължава.")+`
+  <section class="s"><div class="wrap split">
+    <div><p class="eyebrow">Как става</p><h2 style="margin-top:12px">Три стъпки</h2>
+      <ol class="steps" style="margin-top:20px">
+        <li><div><b>Разговор</b><span>В офиса в Плевен, Левски или Севлиево, у дома или по телефона.</span></div></li>
+        <li><div><b>Лист с желанията</b><span>Записваме всичко, което решите. Може да оставите празни полета.</span></div></li>
+        <li><div><b>Копия</b><span>Получавате копие. Един екземпляр остава в АЛФА. Близките ви получават картичка с номера на записа и нашия телефон.</span></div></li>
+      </ol></div>
+    <div class="panel"><h3>Какво записваме</h3>
+      <ul class="list-dash" style="margin-top:14px">
+        <li>Погребение или кремация</li><li>Гробищен парк и гробно място, ако семейството вече има</li><li>Църковен или граждански ритуал, кой храм</li><li>Облекло и лични вещи</li><li>Снимка и текст за некролога</li><li>Кого да уведомим</li><li>Рамка на разходите, която ви е удобна</li><li>Кой от близките да е за връзка</li>
+      </ul></div>
+  </div></section>
+  <section class="s"><div class="wrap split">
+    <div class="faq"><p class="eyebrow">Въпроси</p><h2 style="margin:12px 0 20px">Какво питат хората</h2>
+      <details><summary>Трябва ли да платя нещо сега?</summary><p>Не. Записваме желанията ви. Плаща се едва когато услугата е нужна, по цените към онзи момент.</p></details>
+      <details><summary>Мога ли да променя желанията си?</summary><p>Да, по всяко време. Обадете се или минете през офиса и ще обновим записа.</p></details>
+      <details><summary>Как ще разберат близките ми?</summary><p>Вие решавате. Може да им дадете копие или картичката с номера на записа. Може и ние да им се обадим, ако ни посочите кого.</p></details>
+      <details><summary>Задължава ли ме записът да ползвам АЛФА?</summary><p>Не. Това е запис на желанията ви, а не договор за услуга.</p></details>
+    </div>
+    <form class="panel" data-form="preneed" novalidate><h3>Запишете разговор</h3><p class="muted small" style="margin:6px 0 18px">Ще ви се обадим, за да изберем удобен ден и място.</p>
+      <div class="fgrid">
+        <label class="f">Име<input type="text" id="pn-name" name="name" autocomplete="name"></label>
+        <label class="f">Телефон<input type="tel" id="pn-phone" name="phone" autocomplete="tel"></label>
+        <label class="f">Имейл (по желание)<input type="email" id="pn-email" name="email" autocomplete="email"></label>
+        <label class="f">Офис${officeSelect("pn-office")}</label>
+        <label class="f">Къде да разговаряме<select id="pn-where" name="where"><option>В офиса</option><option>У дома</option><option>По телефона</option></select></label>
+        <label class="f">За кого<select id="pn-for" name="forWhom"><option>За себе си</option><option>За близък човек</option></select></label>
+        <label class="f full">Нещо, което искате да знаем предварително (по желание)<textarea id="pn-msg" name="message"></textarea></label>
+        ${consent("pn-consent")}
+        <div class="full row"><button class="btn gold" type="submit">Изпрати</button></div>
+        <div class="full msg-slot"></div>
+      </div></form>
+  </div></section>`;
+}
+
+function pAftercare(){
+  return pageHero("След погребението","Помените, некролозите и гробът. <em>Можем да поемем всичко.</em>","Първата година носи четири помена и три задушници. Изчислете датите, а ние ще ви напомним и ще подготвим каквото поискате.")+`
+  <section class="s" id="kalendar"><div class="wrap split">
+    ${calcSlip("calcAfter")}
+    <div class="stack" style="gap:22px"><p class="eyebrow">Как се броят дните</p>
+      <p class="lede">Денят на смъртта се брои за първи ден. Затова деветдневният помен е осем дни след датата на смъртта, а четиридесетдневният е след тридесет и девет дни.</p>
+      <p class="muted">Ако денят не е събота, много семейства правят помена в съботата преди него. Задушниците са три пъти в годината: Месна и Черешова се движат с Великден, а Архангелова е в съботата преди 8 ноември.</p>
+      <p class="note">Датите се изчисляват по православния календар. Проверете часа на помена с храма.</p></div>
+  </div></section>
+  <section class="s"><div class="wrap">
+    <div class="s-head"><div><p class="eyebrow">Какво поемаме</p><h2 style="margin-top:12px">Услуги след погребението</h2></div><p class="lede">Цената се показва срещу телефон или имейл, за да можем да ви върнем обаждане, ако имате въпрос.</p></div>
+    <div class="grid2">
+      <div class="card"><h3>Организация на помена</h3><p>Жито, погача, вино и вода, подавки в пликчета или кутии. Доставяме до гроба или до дома.</p><div class="foot">${gateBtn("pomen","Цена на комплекта")}${gateBtn("podavka","Цена на подавка")}</div></div>
+      <div class="card"><h3>Некролози</h3><p>Тъжна вест и некролози за 9 и 40 дни, 6 месеца и годишнини. Пазим снимката и текста, за да не ги търсите отново за всеки помен.</p><div class="foot"><button class="btn sm" type="button" data-scroll="sledForm">Поръчай некролог</button></div></div>
+      <div class="card"><h3>Почистване на гроба</h3><p>Почистваме гробното място преди помен или задушница и ви изпращаме снимка след това.</p><div class="foot">${gateBtn("clean","Цена за почистване")}</div></div>
+      <div class="card"><h3>Паметник и гробно място</h3><p>Изграждаме цялото гробно място и поставяме паметник от гранит, мрамор или триплекс.</p><div class="foot">${gateBtn("build","Цена за гробно място")}<a class="btn sm" href="#pametnici" data-route="pametnici">Паметници</a></div></div>
+    </div>
+  </div></section>
+  <section class="s"><div class="wrap">
+    <div class="s-head"><div><p class="eyebrow">Поддръжка на гроба</p><h2 style="margin-top:12px">Три нива</h2></div><p class="lede">За семейства, които живеят далеч или не могат да ходят често на гробищата.</p></div>
+    <div class="grid3">
+      <div class="card tier"><p class="eyebrow">Основно</p><h3>Еднократно</h3><p>Почистване преди помен или годишнина. Снимка след услугата.</p><div class="foot">${gateBtn("clean")}</div></div>
+      <div class="card tier rec"><span class="badge">Най-често</span><p class="eyebrow">Годишно</p><h3>Цяла година</h3><p>Почистване преди задушниците и годишнината, с ваши цветя.</p><div class="foot"><button class="btn sm" type="button" data-scroll="sledForm">Поискай оферта</button></div></div>
+      <div class="card tier"><p class="eyebrow">Премиум</p><h3>С цветя от нас</h3><p>Годишна поддръжка с цветя и аранжировки от нас.</p><div class="foot"><button class="btn sm" type="button" data-scroll="sledForm">Поискай оферта</button></div></div>
+    </div>
+    <p class="note" style="margin-top:18px">Цената на годишната поддръжка зависи от гробищния парк и от размера на гробното място.</p>
+  </div></section>
+  <section class="s" id="sledForm"><div class="wrap split">
+    ${reminderForm("remAfter")}
+    <form class="panel" data-form="aftercare" novalidate><h3>Поръчка или въпрос</h3><p class="muted small" style="margin:6px 0 18px">Некролог, помен, почистване или поддръжка.</p>
+      <div class="fgrid">
+        <label class="f">Какво ви трябва<select id="ac-what" name="what"><option>Некролог</option><option>Организация на помен</option><option>Почистване на гроба</option><option>Годишна поддръжка</option><option>Поддръжка с цветя</option><option>Друго</option></select></label>
+        <label class="f">За коя дата (по желание)<input type="date" id="ac-date" name="date"></label>
+        <label class="f">Име<input type="text" id="ac-name" name="name" autocomplete="name"></label>
+        <label class="f">Телефон<input type="tel" id="ac-phone" name="phone" autocomplete="tel"></label>
+        <label class="f">Офис${officeSelect("ac-office")}</label>
+        <label class="f">Гробищен парк (по желание)<input type="text" id="ac-cem" name="cemetery"></label>
+        <label class="f full">Бележка (по желание)<textarea id="ac-msg" name="message"></textarea></label>
+        ${consent("ac-consent")}
+        <div class="full row"><button class="btn gold" type="submit">Изпрати</button></div>
+        <div class="full msg-slot"></div>
+      </div></form>
+  </div></section>`;
+}
+
+function pServices(){
+  return pageHero("Погребални услуги","Денонощно, <em>и в трите града.</em>","Поемаме пренасянето, хладилната камера, документите и ритуала. Обадете се и ще ви кажем какво следва.",`<div class="urgent" style="margin-top:28px"><span><b>Денонощен телефон</b></span><span class="tel">${PHONE}</span></div>`)+`
+  <section class="s" id="parviyat-chas"><div class="wrap split">
+    <div><p class="eyebrow">Първият час</p><h2 style="margin-top:12px">Ако близък човек е починал току-що</h2>
+      <ol class="steps" style="margin-top:20px">
+        <li><div><b>Лекар</b><span>Лекар трябва да удостовери смъртта и да издаде съобщение за смърт. У дома: обадете се на личния лекар или на 112. Ако не намирате лекар, ние ще осигурим.</span></div></li>
+        <li><div><b>Обадете ни се</b><span>${PHONE}, денонощно. Идваме, пренасяме покойника и при нужда го съхраняваме в хладилна камера.</span></div></li>
+        <li><div><b>Документите</b><span>Оформяме документите за погребение или кремация. От вас ни трябват личната карта на починалия и вашата.</span></div></li>
+        <li><div><b>Срокът</b><span>По правило погребението е между 24 и 48 часа след смъртта. Ако близки пътуват от чужбина, срокът може да се удължи с хладилна камера.</span></div></li>
+      </ol></div>
+    <form class="panel" data-form="callback" novalidate><h3>Обадете ми се</h3><p class="muted small" style="margin:6px 0 18px">Оставете телефон и ще ви се обадим възможно най-скоро. Ако е спешно, звънете директно на ${PHONE}.</p>
+      <div class="fgrid">
+        <label class="f">Телефон<input type="tel" id="cb-phone" name="phone" autocomplete="tel"></label>
+        <label class="f">Име (по желание)<input type="text" id="cb-name" name="name" autocomplete="name"></label>
+        <label class="f">Офис${officeSelect("cb-office")}</label>
+        <label class="f">Населено място (по желание)<input type="text" id="cb-place" name="settlement" placeholder="гр. Плевен, с. Българене…"></label>
+        ${consent("cb-consent")}
+        <div class="full row"><button class="btn gold" type="submit">Обадете ми се</button></div>
+        <div class="full msg-slot"></div>
+      </div></form>
+  </div></section>
+  <section class="s"><div class="wrap">
+    <div class="s-head"><div><p class="eyebrow">Услуги</p><h2 style="margin-top:12px">Какво организираме</h2></div><p class="lede">Цената се показва срещу телефон или имейл. Окончателната сума зависи от избора ви и се записва в договора, преди да го подпишете.</p></div>
+    <div class="grid2">
+      <div class="card"><h3>Погребение</h3><p>Цялата организация: документи, обличане и подготовка, ковчег, катафалка, опело, гробищен парк, некролог.</p><div class="foot">${gateBtn("burial","Цена на организацията")}</div></div>
+      <div class="card" id="kremaciya"><h3>Кремация</h3><p>Най-близките крематориуми са в София, Пловдив и Варна. Поемаме транспорта, документите и урната.</p><div class="foot">${gateBtn("cr_sof","София")}${gateBtn("cr_plv","Пловдив")}${gateBtn("cr_var","Варна")}</div></div>
+      <div class="card" id="transport"><h3>Транспорт и репатриация</h3><p>Транспорт в страната и пренасяне на тленни останки от чужбина, с всички документи.</p><div class="foot">${gateBtn("km","Цена на километър")}${gateBtn("repat","Документи за репатриация")}</div></div>
+      <div class="card"><h3>Хладилна камера и венци</h3><p>Собствена хладилна камера, когато е нужно повече време. Изкуствени и естествени венци, ленти с надпис.</p><div class="foot">${gateBtn("cold","Хладилна камера")}${gateBtn("wreath","Венци")}</div></div>
+    </div>
+  </div></section>`;
+}
+
+function pMonuments(){
+  const cats=[["Гранит","Черен, сив, червен"],["Мрамор","Мура, Сивец"],["Триплекс","Комбинация от материали"]];
+  return pageHero("Паметници","Паметник и цялото <em>гробно място.</em>","Изработваме и поставяме паметници и изграждаме гробното място. Най-много поръчки имаме от март до май, затова е добре разговорът да започне по-рано.")+`
+  <section class="s"><div class="wrap">
+    <div class="grid3">${cats.map(([n,s])=>`<div class="card"><p class="eyebrow">${s}</p><h3>${n}</h3><div class="empty small" style="padding:40px 16px;text-align:center">Снимки на реализирани паметници — предстои</div></div>`).join("")}</div>
+    <p class="note" style="margin-top:18px">В каталога ще има снимки и размери на всеки модел. Цената на паметник зависи от камъка, размера и надписа, затова я даваме след запитване.</p>
+  </div></section>
+  <section class="s"><div class="wrap split">
+    <div class="stack"><p class="eyebrow">Гробно място</p><h2>Изграждане</h2><p class="lede">Изграждаме гробното място със суха зидария и го подготвяме за паметника.</p><div>${gateBtn("build","Виж цената")}</div></div>
+    <form class="panel" data-form="monument" novalidate><h3>Запитване за паметник</h3>
+      <div class="fgrid" style="margin-top:16px">
+        <label class="f">Камък<select id="mo-stone" name="stone"><option>Не съм решил(а)</option><option>Гранит</option><option>Мрамор</option><option>Триплекс</option></select></label>
+        <label class="f">Гробищен парк<input type="text" id="mo-cem" name="cemetery"></label>
+        <label class="f">Име<input type="text" id="mo-name" name="name" autocomplete="name"></label>
+        <label class="f">Телефон<input type="tel" id="mo-phone" name="phone" autocomplete="tel"></label>
+        <label class="f">Офис${officeSelect("mo-office")}</label>
+        <label class="f">Имейл (по желание)<input type="email" id="mo-email" name="email"></label>
+        <label class="f full">Размер, надпис, снимка (по желание)<textarea id="mo-msg" name="message"></textarea></label>
+        ${consent("mo-consent")}
+        <div class="full row"><button class="btn gold" type="submit">Изпрати запитване</button></div>
+        <div class="full msg-slot"></div>
+      </div></form>
+  </div></section>`;
+}
+
+function pOffices(){return pageHero("Офиси","Плевен, Левски, <em>Севлиево.</em>","Един денонощен телефон за трите офиса: "+PHONE+".")+`<section class="s"><div class="wrap">${officeCards()}</div></section>`;}
+
+function pAbout(){
+  return pageHero("За нас","Съчувствие <em>и деликатност.</em>","АЛФА започва през 1994 г. с един офис в Плевен. През 2005 г. отваряме офис в Левски, а през 2015 г. в Севлиево. Днес екипът ни работи денонощно и в трите града.")+`
+  <section class="s"><div class="wrap">
+    <div class="grid3">
+      <div class="card"><p class="eyebrow">Денонощно</p><h3>Един телефон</h3><p>${PHONE} отговаря денем и нощем, за трите офиса.</p></div>
+      <div class="card"><p class="eyebrow">Преди подписа</p><h3>Ясна цена</h3><p>Обясняваме какво включва всеки ред, преди да подпишете договора. Питаме семействата дали сме го направили.</p></div>
+      <div class="card"><p class="eyebrow">И след това</p><h3>Помените</h3><p>Напомняме за датите и поемаме некролозите, житото и гроба, ако пожелаете.</p></div>
+    </div>
+  </div></section>
+  <section class="s"><div class="wrap split">
+    <div><p class="eyebrow">История</p><h2 style="margin-top:12px">От 1994 г.</h2></div>
+    <ul class="list-dash"><li><b class="num">1994</b> · Плевен, първият офис</li><li><b class="num">2005</b> · Левски</li><li><b class="num">2015</b> · Севлиево</li></ul>
+  </div></section>
+  <section class="s"><div class="wrap"><p class="eyebrow">Фирмени данни</p><p style="margin-top:10px">„АЛФА ГРУП“ ООД · ЕИК 114130026 · ${EMAIL}</p><p class="ph small" style="margin-top:6px">[Екип по офиси със снимки — предстои]</p></div></section>`;
+}
+
+const SERVICE_L={burial:"Погребение",cremation:"Кремация",monument:"Паметник",other:"Друго"};
+function pReviews(){
+  const ap=S.feedback.filter(f=>f.approved&&f.publish&&f.text);
+  return pageHero("Отзиви","Какво казват <em>семействата.</em>","След деветия ден всяко семейство получава една и съща картичка с няколко въпроса. Публикуваме само думи, за които семейството е дало съгласие.")+`
+  <section class="s"><div class="wrap">
+    ${ap.length?`<div class="grid2">${ap.map(quoteHtml).join("")}</div>`:`<div class="empty">Още няма одобрени отзиви. Първите ще се появят тук, когато семейство даде съгласие и служител ги одобри.</div>`}
+    <div class="row" style="margin-top:28px"><span class="btn" aria-disabled="true" title="Нужен е Place ID на офиса в Google">Отзиви в Google ↗</span><span class="faint small">Линкът ще води към профила на всеки офис в Google.</span></div>
+  </div></section>`;
+}
+
+function pContact(){
+  return pageHero("Контакти","Обадете се <em>или ни пишете.</em>","")+`
+  <section class="s"><div class="wrap split">
+    <div class="stack"><div><p class="eyebrow">Телефон, денонощно</p><p class="num" style="font-family:var(--f-d);font-size:40px;color:var(--gold-hi)">${PHONE}</p></div>
+      <div><p class="eyebrow">Имейл</p><p style="font-size:19px">${EMAIL}</p></div>
+      <p class="muted">Ако е спешно, обадете се. Писмата четем в работно време.</p></div>
+    <form class="panel" data-form="contact" novalidate><h3>Съобщение</h3>
+      <div class="fgrid" style="margin-top:16px">
+        <label class="f">Име<input type="text" id="ct-name" name="name" autocomplete="name"></label>
+        <label class="f">Телефон<input type="tel" id="ct-phone" name="phone" autocomplete="tel"></label>
+        <label class="f">Имейл (по желание)<input type="email" id="ct-email" name="email"></label>
+        <label class="f">Офис${officeSelect("ct-office")}</label>
+        <label class="f full">Съобщение<textarea id="ct-msg" name="message"></textarea></label>
+        ${consent("ct-consent")}
+        <div class="full row"><button class="btn gold" type="submit">Изпрати</button></div>
+        <div class="full msg-slot"></div>
+      </div></form>
+  </div></section>`;
+}
+
+/* ───── family feedback (reached by the QR card) ───── */
+function newFb(p){return {office:p?.office||"",fixedOffice:!!p?.office,ref:p?.ref||"",service:"",overall:0,explained:"",priceFeel:"",hardest:[],help:[],phone:"",contactOk:false,text:"",publish:false,initials:""};}
+function chs(field,opts,multi=false){const v=S.fb[field];return `<div class="choices">${opts.map(([k,l])=>`<button type="button" class="choice" data-fb${multi?"m":""}="${field}" data-v="${k}" aria-pressed="${multi?v.includes(k):v===k}">${l}</button>`).join("")}</div>`;}
+function pFeedback(){
+  if(!S.fb) S.fb=newFb(S.param);
+  const f=S.fb;
+  if(S.fbDone) return `<section class="s"><div class="wrap fb"><p class="eyebrow">Благодарим ви</p><h1 style="margin-top:14px">Благодарим, <em>че отделихте време.</em></h1>
+    <p class="lede" style="margin-top:18px">Прочитаме всеки отговор. ${f.contactOk?"Ще ви се обадим за това, което отбелязахте.":""}</p>
+    <div class="panel" style="margin-top:32px"><h3>Отзив в Google</h3><p class="muted" style="margin-top:8px">Ако желаете, споделете няколко думи и в Google. Така и други семейства ще ни намерят по-лесно.</p>
+      <div class="row" style="margin-top:18px"><span class="btn gold" aria-disabled="true">Отзив в Google ↗</span></div>
+      <p class="faint tiny" style="margin-top:10px">В прототипа: бутонът ще води към профила на офиса ${f.office?officeName(f.office):""} в Google. Всяко семейство вижда същия бутон, независимо от отговорите си.</p></div>
+    <p class="muted" style="margin-top:28px">Датите на следващите помени: <a href="#sled-pogrebenieto" data-route="sled-pogrebenieto" data-anchor="kalendar" style="color:var(--gold)">Календар на помените</a>. Телефон: ${PHONE}.</p></div></section>`;
+  const helpPicked=f.help.some(h=>h!=="none");
+  return `<section class="s"><div class="wrap fb">
+    <p class="eyebrow">АЛФА · ${f.fixedOffice?officeName(f.office):"Плевен · Левски · Севлиево"}</p>
+    <h1 style="margin-top:14px;font-size:clamp(36px,5vw,56px)">Как се погрижихме <em>за вас?</em></h1>
+    <p class="lede" style="margin-top:16px">Няколко въпроса, около две минути. Отговорите ни помагат да работим по-добре. Можете да пропуснете всеки въпрос.</p>
+    ${f.ref?`<p class="faint tiny" style="margin-top:10px">Отговорът ще се свърже със случая ви (${esc(f.ref)}), за да знаем кой екип ви е помогнал.</p>`:""}
+    <form id="fbForm" novalidate style="margin-top:28px">
+      ${f.fixedOffice?"":`<div class="q"><h3>Кой офис ви помогна?</h3>${chs("office",OFFICES.map(o=>[o.id,o.name]))}</div>`}
+      <div class="q"><h3>Каква услуга ползвахте?</h3>${chs("service",[["burial","Погребение"],["cremation","Кремация"],["monument","Паметник"],["other","Друго"]])}</div>
+      <div class="q"><h3>Как се погрижихме за вас като цяло?</h3><p class="hint">1 е много зле, 5 е отлично.</p>
+        <div class="scale">${[[1,"Много зле"],[2,"Зле"],[3,"Добре"],[4,"Много добре"],[5,"Отлично"]].map(([n,l])=>`<button type="button" class="choice" data-fb="overall" data-v="${n}" aria-pressed="${f.overall===n}"><b>${n}</b><span>${l}</span></button>`).join("")}</div></div>
+      <div class="q"><h3>Обяснихме ли ясно какво включва цената, преди да подпишете?</h3>${chs("explained",[["yes","Да, напълно"],["partly","Отчасти"],["no","Не"]])}</div>
+      <div class="q"><h3>Цената спрямо това, което получихте, беше:</h3>${chs("priceFeel",[["higher","По-висока от очакваното"],["expected","Каквато очаквахме"],["lower","По-ниска от очакваното"]])}</div>
+      <div class="q"><h3>Кое беше най-трудно в тези дни?</h3><p class="hint">Може да изберете няколко.</p>${chs("hardest",[["docs","Документите"],["time","Сроковете"],["cost","Разходите"],["reach","Да се свържем с вас"],["transport","Транспортът"],["none","Нищо особено"]],true)}</div>
+      <div class="q"><h3>С какво още можем да помогнем?</h3><p class="hint">Може да изберете няколко.</p>${chs("help",[["remind","Напомняне преди помените"],["pomen","Жито и подавки за помен"],["nekrolog","Некролози"],["grave","Почистване на гроба"],["monument","Паметник"],["none","Нищо засега"]],true)}
+        ${helpPicked?`<div class="fgrid" style="margin-top:16px"><label class="f">Телефон за връзка<input type="tel" id="fb-phone" data-fbt="phone" value="${esc(f.phone)}" autocomplete="tel"></label>
+          <label class="check full"><input type="checkbox" id="fb-ok" data-fbc="contactOk" ${f.contactOk?"checked":""}><span>Съгласен/съгласна съм да ми се обадите за това.</span></label></div>`:""}</div>
+      <div class="q"><h3>Искате ли да ни кажете нещо?</h3>
+        <label class="f" for="fb-text">По желание<textarea id="fb-text" data-fbt="text">${esc(f.text)}</textarea></label>
+        <label class="check" style="margin-top:12px"><input type="checkbox" id="fb-pub" data-fbc="publish" ${f.publish?"checked":""}><span>Може да публикувате думите ми на сайта с инициалите ми.</span></label>
+        ${f.publish?`<label class="f" style="margin-top:10px;max-width:260px">Инициали или име<input type="text" id="fb-init" data-fbt="initials" value="${esc(f.initials)}" placeholder="М. К."></label>`:""}</div>
+      <div class="q"><div class="row"><button class="btn gold" type="submit">Изпрати</button><span class="faint small">Не е нужно да попълвате всичко.</span></div><div class="msg-slot" style="margin-top:14px"></div></div>
+    </form></div></section>`;
+}
+
+/* ───── staff inbox ───── */
+function pInbox(){
+  const tabs=[["leads","Запитвания"],["feedback","Обратна връзка"],["sop","Как се вписва в работата"]];
+  let body="";
+  const demo=`<div class="msg row" style="margin-bottom:20px;justify-content:space-between"><span>Демо: тук виждате само опитите, направени в този браузър. Нищо не стига до офиса и никой друг не ги вижда.</span>${S.leads.length||S.feedback.length?`<button class="btn sm" type="button" data-act="clearLocal">Изчисти опитите</button>`:""}</div>`;
+  if(S.tab==="sop") body=sopHtml();
+  else if(S.dbState==="init") body=`<div class="empty">Зареждане на входящите…</div>`;
+  else body=(S.dbState==="none"?demo:"")+(S.tab==="leads"?leadsHtml():feedbackHtml());
+  return `<section class="page-hero"><div class="wrap"><p class="eyebrow">За служителите</p><h1 style="margin-top:12px;font-size:clamp(36px,5vw,58px)">Входящи от сайта</h1>
+    <p class="lede">В прототипа запитванията и отговорите от картичките се събират тук. В истинския сайт всяко запитване стига до офиса по имейл, както досега, и чака като чернова в Пулта.</p></div></section>
+  <section class="s" style="padding-top:28px"><div class="wrap">
+    <div class="tabs" role="tablist">${tabs.map(([k,l])=>`<button role="tab" type="button" data-tab="${k}" aria-selected="${S.tab===k}">${l}${k==="leads"&&S.leads.filter(x=>x.status==="new").length?` <span class="chip">${S.leads.filter(x=>x.status==="new").length}</span>`:""}</button>`).join("")}</div>
+    ${body}</div></section>`;
+}
+function leadsHtml(){
+  const f=S.leadFilter; const ls=S.leads.filter(l=>f==="all"||l.status===f);
+  const seg=[["new","Нови"],["called","Обадихме се"],["done","Приключени"],["all","Всички"]];
+  return `<div class="row" style="justify-content:space-between;margin-bottom:12px"><div class="seg" role="group" aria-label="Филтър">${seg.map(([k,l])=>`<button type="button" data-lf="${k}" aria-pressed="${f===k}">${l}</button>`).join("")}</div>
+    <span class="faint small">${S.leads.length} общо</span></div>
+  ${ls.length?`<div>${ls.map(l=>`<div class="lead"><div style="min-width:0">
+      <div class="meta"><span class="chip ${l.type==="callback"?"warn":""}">${esc(LEAD_T[l.type]||l.type)}</span><span>${esc(officeName(l.office))}</span><span>${relTime(l.createdAt)}</span>${l.status==="new"?"":`<span class="chip ${l.status==="done"?"ok":"mute"}">${l.status==="done"?"Приключено":"Обадихме се"}</span>`}</div>
+      <div class="who">${esc(l.name||"Без име")} · <span class="num">${esc(l.phone||l.contact||l.email||"")}</span></div>
+      <div class="what">${esc(leadSummary(l))}</div></div>
+    <div class="acts"><button class="btn sm" type="button" data-pult="${l.id}">Чернова в Пулта</button><div class="seg">${[["called","Обадихме се"],["done","Приключено"]].map(([k,t])=>`<button type="button" data-ls="${l.id}|${k}" aria-pressed="${l.status===k}">${t}</button>`).join("")}</div></div></div>`).join("")}</div>`
+  :`<div class="empty">${f==="new"?"Няма нови запитвания.":"Няма запитвания тук."} Опитайте формите на сайта, например „Обадете ми се“ в <a href="#uslugi" data-route="uslugi" data-anchor="parviyat-chas" style="color:var(--gold)">Услуги</a> или бутоните „Виж цената“.</div>`}`;
+}
+function leadSummary(l){
+  if(l.type==="reveal") return `Видя цена: ${l.itemName} (${l.priceShown})`;
+  if(l.type==="reminder") return `Напомняне за помените${l.deathDate?`, починал на ${fmtLong(parseD(l.deathDate))}`:""}`;
+  if(l.type==="preneed") return `Разговор: ${l.where||""}, ${(l.forWhom||"").toLowerCase()}${l.message?`. „${l.message}“`:""}`;
+  if(l.type==="aftercare") return `${l.what||""}${l.date?` за ${fmtLong(parseD(l.date))}`:""}${l.cemetery?`, ${l.cemetery}`:""}${l.message?`. „${l.message}“`:""}`;
+  if(l.type==="monument") return `${l.stone||""}${l.cemetery?`, ${l.cemetery}`:""}${l.message?`. „${l.message}“`:""}`;
+  if(l.type==="callback") return `Иска обаждане${l.settlement?` · ${l.settlement}`:""}`;
+  return l.message||"";
+}
+const PRICE_L={higher:"По-висока",expected:"Каквато очаквахме",lower:"По-ниска"};
+const HARD_L={docs:"Документите",time:"Сроковете",cost:"Разходите",reach:"Да се свържем",transport:"Транспортът",none:"Нищо особено"};
+const HELP_L={remind:"Напомняне",pomen:"Жито и подавки",nekrolog:"Некролози",grave:"Почистване на гроба",monument:"Паметник",none:"Нищо засега"};
+function feedbackHtml(){
+  const F=S.feedback, n=F.length;
+  const wo=F.filter(f=>f.overall), avg=wo.length?(wo.reduce((s,f)=>s+f.overall,0)/wo.length):null;
+  const ex=F.filter(f=>f.explained), exY=ex.filter(f=>f.explained==="yes").length;
+  const pf=F.filter(f=>f.priceFeel), pfH=pf.filter(f=>f.priceFeel==="higher").length;
+  const pct=(a,b)=>b?Math.round(a/b*100)+"%":"—";
+  const kpis=`<div class="kpis"><div class="kpi"><div class="v">${n}</div><div class="l">отговора</div></div><div class="kpi"><div class="v">${avg?avg.toFixed(1).replace(".",","):"—"}</div><div class="l">средна оценка от 5</div></div><div class="kpi"><div class="v">${pct(exY,ex.length)}</div><div class="l">казват, че сме обяснили цената ясно</div></div><div class="kpi"><div class="v">${pct(pfH,pf.length)}</div><div class="l">намират цената по-висока от очакваното</div></div></div>`;
+  if(!n) return kpis+`<div class="empty" style="margin-top:20px">Още няма отговори. Картичката с QR се разпечатва от Пулта: случай → Документи. Може да опитате формата и оттук: <a href="#otzyv-PL" data-route="otzyv" style="color:var(--gold)">формата за семействата</a>.</div>`;
+  const svc=["burial","cremation","monument","other"].map(k=>{const r=pf.filter(f=>f.service===k);return {k,r,n:r.length,c:["higher","expected","lower"].map(p=>r.filter(f=>f.priceFeel===p).length)};}).filter(x=>x.n);
+  const priceChart=svc.length?`<div class="legend"><span><i style="background:var(--div-hi)"></i>По-висока от очакваното</span><span><i style="background:var(--div-mid)"></i>Каквато очаквахме</span><span><i style="background:var(--div-lo)"></i>По-ниска</span></div>
+    <div class="bars">${svc.map(s=>`<div class="bar-row"><span>${SERVICE_L[s.k]}</span><div class="stack100">${s.c.map((c,i)=>c?`<span style="flex:${c};background:${["var(--div-hi)","var(--div-mid)","var(--div-lo)"][i]}" title="${["По-висока","Каквато очаквахме","По-ниска"][i]}: ${c} от ${s.n}">${Math.round(c/s.n*100)}%</span>`:"").join("")}</div><span class="faint num">n=${s.n}</span></div>`).join("")}</div>`:`<p class="faint small">Още няма отговори за цената.</p>`;
+  const hc={};F.forEach(f=>(f.hardest||[]).forEach(h=>hc[h]=(hc[h]||0)+1));const hmax=Math.max(1,...Object.values(hc));
+  const hardChart=Object.keys(hc).length?`<div class="bars">${Object.entries(hc).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="bar-row"><span>${HARD_L[k]||k}</span><div class="bar-track"><div class="bar-fill" style="width:${v/hmax*100}%" title="${HARD_L[k]}: ${v}"></div></div><span class="num">${v}</span></div>`).join("")}</div>`:`<p class="faint small">Няма отбелязани.</p>`;
+  const fu=F.filter(f=>f.contactOk&&f.phone&&(f.help||[]).some(h=>h!=="none"));
+  const pend=F.filter(f=>f.publish&&f.text&&f.approved==null);
+  return kpis+`
+  <div class="grid2" style="margin-top:28px">
+    <div class="panel"><h4>Цената спрямо очакваното, по услуга</h4><p class="faint small" style="margin:4px 0 16px">Сигнал за ценоразписа: къде семействата усещат цената като висока.</p>${priceChart}</div>
+    <div class="panel"><h4>Кое беше най-трудно</h4><p class="faint small" style="margin:4px 0 16px">Брой отговори. Едно семейство може да избере няколко.</p>${hardChart}</div>
+  </div>
+  <div class="grid2" style="margin-top:24px">
+    <div class="panel"><h4>За обаждане</h4><p class="faint small" style="margin:4px 0 12px">Семейства, които искат още помощ и са дали съгласие.</p>
+      ${fu.length?fu.map(f=>`<div class="lead"><div><div class="meta"><span>${esc(officeName(f.office))}</span><span>${relTime(f.createdAt)}</span>${f.ref?`<span>случай ${esc(f.ref)}</span>`:""}</div><div class="who num">${esc(f.phone)}</div><div class="what">${(f.help||[]).filter(h=>h!=="none").map(h=>HELP_L[h]).join(", ")}</div></div>
+        <div class="acts"><button type="button" class="btn sm" data-fu="${f.id}" aria-pressed="${!!f.followedUp}">${f.followedUp?"Обадихме се ✓":"Отбележи обаждане"}</button></div></div>`).join(""):`<p class="faint small">Няма засега.</p>`}</div>
+    <div class="panel"><h4>Отзиви за одобрение</h4><p class="faint small" style="margin:4px 0 12px">Само тези, за които семейството е дало съгласие. Одобрените излизат на сайта.</p>
+      ${pend.length?pend.map(f=>`<div class="lead"><div><div class="meta"><span>${esc(f.initials||"без инициали")}</span><span>${esc(officeName(f.office))}</span><span>оценка ${f.overall||"—"}</span></div><div class="what" style="color:var(--text)">„${esc(f.text)}“</div></div>
+        <div class="acts"><button type="button" class="btn sm" data-ap="${f.id}|1">Публикувай</button><button type="button" class="btn sm" data-ap="${f.id}|0">Не</button></div></div>`).join(""):`<p class="faint small">Няма чакащи.</p>`}
+      ${F.some(f=>f.approved===true)?`<p class="faint small" style="margin-top:10px">Публикувани: ${F.filter(f=>f.approved===true).length}.</p>`:""}</div>
+  </div>`;
+}
+function sopHtml(){
+  const rows=[
+    ["Запитване от сайта","Семейството звъни или пише имейл.","Имейл до офиса, както досега. Същото запитване чака като чернова в Пулта.","Обажда се, както досега. Ако отвори черновата, не пише данните отново."],
+    ["Цена на сайта","Хората звънят, за да питат.","Оставят телефон или имейл и виждат цената. Офисът получава имейл с какво са гледали.","Може да звънне. Ако не звънне, нищо не се губи."],
+    ["Деветият ден","Офисът подготвя некролога за 9 дни.","В плика с некролога влиза и картичка с QR.","Разпечатва картичката от Пулта заедно с некролога. Една страница повече."],
+    ["Помените","Семейството само следи датите.","Семейството може да поиска напомняне от сайта или от картичката.","Звъни от радара на Пулта, който вече показва помените за 30 дни напред."],
+    ["Отзиви","Не се събират.","Семейството отговаря от телефона си. Видим само за офиса.","Веднъж седмично някой одобрява отзивите за сайта и звъни на тези, които искат помощ."],
+    ["Цени","Ценоразпис от 2023 г. в лева.","Сайтът, договорът и Пултът ползват един ценоразпис в евро.","Нищо. Собственикът преглежда цените веднъж в Пулта."]];
+  return `<p class="lede" style="margin-bottom:24px">Сайтът не добавя нова стъпка към обаждането. Служителят работи както досега. Новото са две неща: черновата в Пулта и картичката в плика с некролога.</p>
+  <div class="tbl-wrap"><table class="sop"><thead><tr><th>Момент</th><th>Днес</th><th>С новия сайт</th><th>Какво прави служителят</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r[0]}</td><td class="muted">${r[1]}</td><td class="new">${r[2]}</td><td>${r[3]}</td></tr>`).join("")}</tbody></table></div>
+  <div class="panel" style="margin-top:28px"><h4>Данни, които липсват в прототипа</h4><ul class="list-dash small" style="margin-top:10px">
+    <li>Адресите и работното време на трите офиса. Плевен е въведен като ул. „Борис Шивачев“ № 5, за потвърждение.</li>
+    <li>Отделни телефони на Левски и Севлиево. Навсякъде стои 0888 715 021.</li>
+    <li>Годината на отваряне на Севлиево: в прототипа е 2015, по спецификацията на сайта.</li>
+    <li>Place ID на всеки офис в Google, за бутона „Отзив в Google“.</li>
+    <li>Прегледани цени в евро. Сега са от ценоразписите от 2017 и 2023 г.</li>
+    <li>Снимки на паметници, офиси и екип.</li>
+    <li>Потвърждение, че „Планирай напред“ не взима пари. Така е написано в прототипа.</li></ul></div>`;
+}
+function pultCard(l){
+  const isCase=l.type==="callback";
+  const f=isCase?[["Обаждащ се",l.name||"—"],["Телефон",l.phone||"—"],["Офис",officeName(l.office)],["Откъде ни намери","Сайт / Google"],["Населено място",l.settlement||"—"],["Повикване",new Date(l.createdAt).toLocaleString("bg-BG",{dateStyle:"short",timeStyle:"short"})]]
+    :[["Вид",LEAD_T[l.type]],["Име",l.name||"—"],["Контакт",l.phone||l.contact||l.email||"—"],["Офис",officeName(l.office)],["Какво",leadSummary(l)]];
+  return `<div class="pult"><div class="ph2"><b style="font-size:14px">${isCase?"Нов случай · чернова":"Запитване"}</b><span class="chip">от сайта</span></div><dl>${f.map(([k,v])=>`<dt>${k}</dt><dd>${esc(v)}</dd>`).join("")}</dl>
+  <p class="faint tiny" style="margin-top:8px">${isCase?"Служителят натиска „Отвори“ и продължава повикването в Пулта от стъпка 2. Часът на първия контакт вече е записан.":"Стои в Пулта под „От сайта“, докато някой отбележи, че се е обадил."}</p></div>`;
+}
+function mailHtml(l){
+  const subj=`Ново от сайта: ${LEAD_T[l.type]} · ${officeName(l.office)}`;
+  const lines=[`${LEAD_T[l.type]}`,`Име: ${l.name||"—"}`,`Контакт: ${l.phone||l.contact||l.email||"—"}`,`Офис: ${officeName(l.office)}`,leadSummary(l),"",`Получено: ${new Date(l.createdAt).toLocaleString("bg-BG")}`];
+  return `<div class="mail"><div class="mh"><span>До</span><b>${EMAIL}</b><span>Тема</span><b>${esc(subj)}</b></div><div class="mb">${esc(lines.filter((x,i)=>x!==""||i>3).join("\n"))}</div></div>`;
+}
+function renderDrawer(){
+  const r=$("#drawerRoot");const l=S.last;
+  if(!S.bts||!l){r.innerHTML="";return;}
+  r.innerHTML=`<aside class="drawer" aria-label="Какво вижда офисът"><div class="drawer-h"><b>Какво вижда офисът</b><button class="btn sm" type="button" data-act="closeDrawer">Затвори</button></div>
+    <div class="drawer-b"><div><p class="small muted" style="margin-bottom:8px">1. Имейл до офиса, както досега</p>${mailHtml(l)}</div>
+    <div><p class="small muted" style="margin-bottom:8px">2. Чернова в Пулта</p>${pultCard(l)}</div>
+    <p class="tiny faint">${l.saved==="local"?"Демо: записано във „Входящи“ само в този браузър. В истинския сайт имейлът и черновата стигат до офиса.":l.saved?"Записано във „Входящи“ на прототипа.":db?"Не е записано: този изглед няма право да записва в споделената база. Показваме само как ще изглежда.":"Прототипът е отворен без споделена база, затова нищо не се записва. Показваме само как ще изглежда."}</p></div></aside>`;
+}
+
+/* ───── price gate ───── */
+function renderGate(){
+  const r=$("#ovRoot"),g=S.gate;
+  if(!g){r.innerHTML="";return;}
+  const it=GATED[g.key];
+  r.innerHTML=`<div class="ov" data-ovclose="1"><div class="modal" role="dialog" aria-modal="true" aria-label="${esc(it.name)}">
+    ${g.step==="ask"?`<p class="eyebrow">Цена</p><h3 style="margin-top:8px">${esc(it.name)}</h3>
+      <form id="gateForm" novalidate class="stack" style="margin-top:18px">
+        <label class="f">Въведете телефон или имейл, за да видите цената<input type="text" id="gate-contact" inputmode="email" autocomplete="tel" value="${esc(g.contact||"")}"></label>
+        <label class="f">Офис${officeSelect("gate-office",g.office||"PL")}</label>
+        ${g.err?`<div class="msg err">${esc(g.err)}</div>`:""}
+        <div class="row"><button class="btn gold" type="submit">Виж цената →</button><button class="btn" type="button" data-act="closeGate">Затвори</button></div>
+        <p class="tiny faint">Не споделяме данните ви с трети страни. Може да ви се обадим, ако цената зависи от подробности.</p></form>`
+    :`<p class="eyebrow">Благодарим ви</p><h3 style="margin-top:8px">${esc(it.name)}</h3><p class="bigprice" style="margin-top:14px">${priceText(it)}</p>
+      ${it.note?`<p class="muted small" style="margin-top:10px">${esc(it.note)}</p>`:""}
+      <p class="tiny faint" style="margin-top:10px">Ценоразпис от ${it.year} г., превърнат в евро по 1,95583. Цената ще бъде прегледана преди пускането на сайта.</p>
+      <div class="row" style="margin-top:20px"><a class="btn gold" href="#kontakti" data-route="kontakti">Поискай оферта</a><button class="btn" type="button" data-act="closeGate">Затвори</button></div>`}
+  </div></div>`;
+  if(g.step==="ask") setTimeout(()=>$("#gate-contact")?.focus(),20);
+}
+function validContact(v){v=String(v||"").trim();if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))return"email";if(v.replace(/\D/g,"").length>=9)return"phone";return null;}
+
+/* ───── render ───── */
+function navHtml(){return NAV.map(([r,l])=>`<a href="#${r}" data-route="${r}" ${S.route===r?'aria-current="page"':""}>${l}</a>`).join("");}
+function render(){
+  $("#nav").innerHTML=navHtml();
+  const mn=$("#mnav");mn.hidden=!S.menu;mn.innerHTML=navHtml()+`<a href="#kontakti" data-route="kontakti">Контакти</a>`;
+  $("#menuBtn").setAttribute("aria-expanded",String(S.menu));
+  $("#btsBtn").setAttribute("aria-pressed",String(S.bts));
+  const P={nachalo:pHome,"planirai-napred":pPreneed,"sled-pogrebenieto":pAftercare,uslugi:pServices,pametnici:pMonuments,ofisi:pOffices,"za-nas":pAbout,otzivi:pReviews,kontakti:pContact,otzyv:pFeedback,vhodyashti:pInbox}[S.route]||pHome;
+  $("#main").innerHTML=P();
+  const nl=$("#noteLink");
+  if(nl){const lbl=Object.fromEntries(NAV.concat([["nachalo","Начало"],["kontakti","Контакти"],["otzyv","Форма за семействата"],["vhodyashti","Входящи"]]))[S.route]||S.route;
+    nl.href=`mailto:${EMAIL}?subject=${encodeURIComponent("Сайт v2 · бележка · "+lbl)}&body=${encodeURIComponent("Страница: "+lbl+"\n\nБележка:\n")}`;}
+  renderGate();renderDrawer();
+}
+function rerenderKeepScroll(){const y=window.scrollY;render();window.scrollTo(0,y);}
+
+/* ───── events ───── */
+document.addEventListener("click",async ev=>{
+  const t=ev.target.closest("[data-route],[data-gate],[data-act],[data-scroll],[data-fb],[data-fbm],[data-tab],[data-lf],[data-ls],[data-pult],[data-ap],[data-fu],[data-ovclose],#btsBtn,#menuBtn");
+  if(!t) return;
+  if(t.dataset.ovclose&&ev.target!==t) return;
+  if(t.id==="btsBtn"){S.bts=!S.bts;lsSet("alfa-sait-bts",S.bts?"1":"0");t.setAttribute("aria-pressed",String(S.bts));renderDrawer();if(S.bts&&!S.last)toast("Изпратете някоя форма, за да видите какво стига до офиса.");return;}
+  if(t.id==="menuBtn"){S.menu=!S.menu;$("#mnav").hidden=!S.menu;t.setAttribute("aria-expanded",String(S.menu));return;}
+  if(t.dataset.route){ev.preventDefault();const r=t.dataset.route;if(r==="otzyv"){S.fb=null;S.fbDone=false;}go(r,r==="otzyv"?{office:"PL",ref:""}:null,t.dataset.anchor||null);return;}
+  if(t.dataset.ovclose){S.gate=null;renderGate();return;}
+  if(t.dataset.gate){S.gate={key:t.dataset.gate,step:"ask",office:"PL"};renderGate();return;}
+  if(t.dataset.scroll){document.getElementById(t.dataset.scroll)?.scrollIntoView({block:"start"});return;}
+  if(t.dataset.fb){const f=t.dataset.fb;let v=t.dataset.v;if(f==="overall")v=+v;S.fb[f]=S.fb[f]===v?(f==="overall"?0:""):v;rerenderKeepScroll();return;}
+  if(t.dataset.fbm){const f=t.dataset.fbm,v=t.dataset.v;let a=S.fb[f].slice();if(a.includes(v))a=a.filter(x=>x!==v);else a=v==="none"?["none"]:a.filter(x=>x!=="none").concat(v);S.fb[f]=a;rerenderKeepScroll();return;}
+  if(t.dataset.tab){S.tab=t.dataset.tab;rerenderKeepScroll();return;}
+  if(t.dataset.lf){S.leadFilter=t.dataset.lf;rerenderKeepScroll();return;}
+  if(t.dataset.ls){const [id,st]=t.dataset.ls.split("|");const l=S.leads.find(x=>x.id===id);if(!l)return;const next=l.status===st?"new":st;try{await updateDoc("leads",id,{status:next,statusAt:new Date().toISOString()});}catch(e){toast("Промяната не се записа.");}return;}
+  if(t.dataset.pult){const l=S.leads.find(x=>x.id===t.dataset.pult);if(!l)return;S.last={...l,saved:true};if(!S.bts){S.bts=true;lsSet("alfa-sait-bts","1");$("#btsBtn").setAttribute("aria-pressed","true");}renderDrawer();return;}
+  if(t.dataset.ap){const [id,v]=t.dataset.ap.split("|");try{await updateDoc("feedback",id,{approved:v==="1",reviewedAt:new Date().toISOString()});toast(v==="1"?"Публикуван на сайта.":"Няма да се публикува.");}catch(e){toast("Промяната не се записа.");}return;}
+  if(t.dataset.fu){const f=S.feedback.find(x=>x.id===t.dataset.fu);if(!f)return;try{await updateDoc("feedback",f.id,{followedUp:!f.followedUp});}catch(e){toast("Промяната не се записа.");}return;}
+  const a=t.dataset.act;
+  if(a==="closeGate"){S.gate=null;renderGate();}
+  else if(a==="closeDrawer"){S.last=null;renderDrawer();}
+  else if(a==="clearLocal"){S.leads=[];S.feedback=[];saveLocal();rerenderKeepScroll();toast("Опитите са изчистени.");}
+});
+document.addEventListener("input",ev=>{
+  const el=ev.target;
+  if(el.dataset.calc){S.calcDate=el.value;document.querySelectorAll(".calc-out").forEach(n=>n.innerHTML=calcOut());document.querySelectorAll("[data-calc]").forEach(i=>{if(i!==el)i.value=el.value;});document.querySelectorAll('input[name="deathDate"]').forEach(i=>{if(!i.value)i.value=el.value;});return;}
+  if(el.dataset.fbt&&S.fb){S.fb[el.dataset.fbt]=el.value;return;}
+});
+document.addEventListener("change",ev=>{
+  const el=ev.target;
+  if(el.dataset.fbc&&S.fb){S.fb[el.dataset.fbc]=el.checked;if(el.dataset.fbc==="publish")rerenderKeepScroll();return;}
+});
+document.addEventListener("keydown",ev=>{if(ev.key==="Escape"&&S.gate){S.gate=null;renderGate();}});
+document.addEventListener("submit",async ev=>{
+  const form=ev.target;
+  if(form.id==="gateForm"){ev.preventDefault();const g=S.gate;g.contact=$("#gate-contact").value.trim();g.office=$("#gate-office").value;const kind=validContact(g.contact);
+    if(!kind){g.err="Въведете телефон (поне 9 цифри) или имейл.";renderGate();return;}
+    const it=GATED[g.key];g.step="shown";g.err=null;renderGate();
+    await saveLead("reveal",{[kind]:g.contact,contact:g.contact,office:g.office,item:g.key,itemName:it.name,priceShown:priceText(it)});return;}
+  if(form.id==="fbForm"){ev.preventDefault();const f=S.fb;const slot=form.querySelector(".msg-slot");
+    if(!f.overall&&!f.priceFeel&&!f.explained&&!f.text.trim()){slot.innerHTML=`<div class="msg err">Отговорете поне на един въпрос или напишете няколко думи.</div>`;return;}
+    if(f.contactOk&&f.phone.replace(/\D/g,"").length<9){slot.innerHTML=`<div class="msg err">Проверете телефона: трябват поне 9 цифри.</div>`;return;}
+    const doc=clean({office:f.office||"",ref:f.ref,service:f.service,overall:f.overall||null,explained:f.explained,priceFeel:f.priceFeel,hardest:f.hardest,help:f.help,contactOk:f.contactOk&&!!f.phone,phone:f.contactOk?f.phone.trim():"",text:f.text.trim(),publish:f.publish&&!!f.text.trim(),initials:f.publish?f.initials.trim():"",createdAt:new Date().toISOString()});
+    const ok=await write("feedback",doc);
+    if(!ok&&S.canWrite===false){slot.innerHTML=`<div class="msg err">Отговорът не се записа: този изглед няма право да записва. В прототипа формата работи за служители с достъп Contributor.</div>`;return;}
+    if(!ok&&db){slot.innerHTML=`<div class="msg err">Отговорът не се записа. Опитайте отново след малко.</div>`;return;}
+    S.fbDone=true;render();window.scrollTo(0,0);return;}
+  const type=form.dataset.form; if(!type) return;
+  ev.preventDefault();
+  const fd=Object.fromEntries(new FormData(form).entries());
+  const slot=form.querySelector(".msg-slot");
+  const phoneOk=String(fd.phone||"").replace(/\D/g,"").length>=9;
+  if(!phoneOk){slot.innerHTML=`<div class="msg err">Въведете телефон, поне 9 цифри, за да можем да ви се обадим.</div>`;form.querySelector('[name="phone"]')?.focus();return;}
+  if(type==="contact"&&!String(fd.message||"").trim()){slot.innerHTML=`<div class="msg err">Напишете съобщението си.</div>`;return;}
+  if(!fd.consent){slot.innerHTML=`<div class="msg err">Отбележете съгласието, за да можем да използваме телефона ви за това запитване.</div>`;return;}
+  delete fd.consent;
+  const btn=form.querySelector('button[type="submit"]');btn.disabled=true;
+  const saved=await saveLead(type,fd);
+  const city=officeName(fd.office);
+  const okText={callback:`Ще ви се обадим възможно най-скоро. Ако е спешно, звънете на ${PHONE}, денонощно.`,reminder:`Записахме ви. Офисът в ${city} ще ви се обади около седмица преди всяка дата.`,preneed:`Благодарим. Офисът в ${city} ще ви се обади, за да изберем удобен ден.`}[type]||`Благодарим. Офисът в ${city} ще ви се обади в работно време. Ако е спешно, звънете на ${PHONE}.`;
+  slot.innerHTML=`<div class="msg ok">${esc(okText)}${saved||!db?"":` <span class="faint">(В прототипа: не е записано, защото този изглед няма право да записва.)</span>`}</div>`;
+  form.querySelectorAll("input,textarea,select").forEach(i=>{if(i.type==="checkbox")i.checked=false;else if(i.tagName!=="SELECT"&&i.type!=="date")i.value="";});
+  btn.disabled=false;
+});
+
+/* ───── boot ───── */
+function subscribe(){
+  db.collection("leads").orderBy("createdAt","desc").limit(300).onSnapshot(s=>{S.leads=s.docs.map(d=>({...d.data(),id:d.id}));if(S.route==="vhodyashti")rerenderKeepScroll();},e=>{});
+  db.collection("feedback").orderBy("createdAt","desc").limit(500).onSnapshot(s=>{S.feedback=s.docs.map(d=>({...d.data(),id:d.id}));if(["vhodyashti","nachalo","otzivi"].includes(S.route))rerenderKeepScroll();},e=>{});
+}
+async function boot(){
+  const p=parseHash();S.route=p.route;S.param=p.param;if(p.route==="otzyv")S.fb=newFb(p.param);
+  render();
+  const use=n=>window.claude?.use?Promise.resolve(window.claude.use(n)).catch(()=>null):Promise.resolve(null);
+  const [d,u]=await Promise.all([use("db"),use("user")]);
+  user=u;
+  if(u?.can){try{const c=await u.can("data.write");if(c===false)S.canWrite=false;else if(c===true)S.canWrite=true;}catch(e){}}
+  if(!d){S.dbState="none";loadLocal();if(["vhodyashti","nachalo","otzivi"].includes(S.route))rerenderKeepScroll();return;}
+  db=d;S.dbState="db";subscribe();if(S.route==="vhodyashti")rerenderKeepScroll();
+}
+boot();
+</script>
+</body>
+</html>
