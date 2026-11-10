@@ -1,0 +1,134 @@
+{
+  "meta": {
+    "siteName": "ALFA Funeral Services",
+    "fallbackTitle": "ALFA Funeral Services — Sympathy and Delicacy",
+    "description": "ALFA funeral services: funerals arranged around the clock in Pleven, Levski and Sevlievo since 1994."
+  },
+  "a11y": {
+    "skipToContent": "Skip to content"
+  },
+  "header": {
+    "brandSub": "funeral services · since 1994",
+    "call24": "24 hours",
+    "menu": "Services",
+    "menuOpen": "Open the menu",
+    "menuClose": "Close the menu",
+    "language": "Language",
+    "mainNav": "Main menu",
+    "more": "ALFA"
+  },
+  "pages": {
+    "funeral-services": "Funeral services",
+    "monuments": "Monuments",
+    "funeral-products": "Funeral products",
+    "cemetery-plots": "Cemetery plots",
+    "maintenance-subscription": "Maintenance subscription",
+    "plan-ahead": "Plan ahead",
+    "offices": "Offices",
+    "about-us": "About us",
+    "faq": "Frequently asked questions",
+    "reviews": "Reviews",
+    "contact": "Contact",
+    "calculator": "Commemoration calendar"
+  },
+  "hero": {
+    "eyebrow": "Pleven · Levski · Sevlievo · since 1994",
+    "title": "We remember the dates<em>together with you.</em>",
+    "body": "We arrange funerals around the clock. Afterwards we stay with the family for the memorial services, the obituaries and the care of the grave. Anyone who wants to put things in order ahead of time can record their wishes with us.",
+    "ctaCall": "Call us, any hour",
+    "ctaPlan": "Plan ahead"
+  },
+  "paths": {
+    "before": {
+      "when": "Before",
+      "title": "Plan ahead",
+      "text": "We write down your wishes for the ceremony, the place and the obituary. You receive a copy, and your family knows what you wanted.",
+      "cta": "How it works →"
+    },
+    "now": {
+      "when": "Now",
+      "title": "Help is needed",
+      "text": "We come at any hour. We take care of the transfer, the cold room, the documents and the whole arrangement.",
+      "cta": "The first hour →"
+    },
+    "after": {
+      "when": "After",
+      "title": "Memorials and the grave",
+      "text": "Obituaries, wheat and keepsakes for memorial services, cleaning of the grave before the commemoration days. We remind you before every date.",
+      "cta": "What we take on →"
+    }
+  },
+  "sections": {
+    "services": {
+      "eyebrow": "Services",
+      "title": "What we take on"
+    },
+    "monuments": {
+      "eyebrow": "Monuments",
+      "title": "Monuments in triplex, granite and marble"
+    },
+    "graves": {
+      "eyebrow": "Grave sites",
+      "title": "Examples of completed grave sites"
+    },
+    "offices": {
+      "eyebrow": "Offices",
+      "title": "Our offices",
+      "since": "since {year}",
+      "pending": "The office address, phone and opening hours will be added.",
+      "allDay": "24-hour phone for all offices"
+    },
+    "maintenance": {
+      "eyebrow": "Subscription",
+      "title": "Grave maintenance subscription"
+    },
+    "reviews": {
+      "eyebrow": "Reviews",
+      "title": "What families say"
+    },
+    "history": {
+      "eyebrow": "Since 1994",
+      "title": "Our own offices, not a network of partners"
+    },
+    "planAhead": {
+      "eyebrow": "Plan ahead",
+      "title": "Put things in order early, without haste"
+    }
+  },
+  "stub": {
+    "soon": "This section is coming soon."
+  },
+  "calculator": {
+    "title": "Commemoration calendar",
+    "intro": "Enter the date of death. We will work out the dates of the memorial services according to Orthodox custom.",
+    "dateLabel": "Date of death",
+    "submit": "Calculate",
+    "errorRequired": "Choose a date.",
+    "errorInvalid": "This date is not valid.",
+    "errorFuture": "The date cannot be in the future.",
+    "rule": "The day of death counts as day one: the ninth day is 8 days after the date of death.",
+    "resultsLabel": "Memorial dates",
+    "addToCalendar": "Add to calendar",
+    "downloadAll": "All dates for your calendar (.ics)",
+    "icsDescription": "ALFA funeral services",
+    "ctaContact": "Contact us about the memorial",
+    "items": {
+      "day3": "Third day",
+      "day9": "Ninth-day memorial",
+      "day40": "Fortieth-day memorial",
+      "month6": "Six-month memorial",
+      "year1": "One-year memorial"
+    },
+    "inDays": "in {days, plural, one {# day} other {# days}}",
+    "today": "today",
+    "past": "passed"
+  },
+  "footer": {
+    "tagline": "Sympathy and delicacy. Pleven, Levski and Sevlievo.",
+    "before": "Before and after",
+    "services": "Services",
+    "company": "ALFA",
+    "privacy": "Privacy policy (coming soon)",
+    "cookies": "Cookies (coming soon)"
+  }
+}

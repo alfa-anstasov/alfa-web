@@ -1,0 +1,42 @@
+@import './fonts.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
+  body {
+    @apply bg-bg font-body text-base text-text antialiased;
+    margin: 0;
+  }
+  h1, h2, h3, h4 { @apply font-display font-medium; text-wrap: balance; margin: 0; }
+  h1 { @apply text-h1; }
+  h2 { @apply text-h2; }
+  h3 { @apply text-h3; }
+  h4 { @apply text-h4 font-semibold; }
+  p { margin: 0; }
+  em { @apply italic text-gold-hi; }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+}
+
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-wrap px-gutter; }
+  @media (max-width: 560px) { .wrap { padding-inline: 16px; } }
+  .eyebrow { @apply text-tiny font-medium uppercase tracking-eyebrow text-gold; }
+  .lede { @apply max-w-lede text-lede text-dim; }
+  .section { @apply border-t border-line py-section; }
+  @media (max-width: 620px) { .section { padding-block: 52px; } }
+  .btn {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded border border-line-2 bg-transparent px-5 py-3 text-[15px] font-medium text-text no-underline transition-colors hover:border-gold;
+  }
+  .btn-gold { @apply border-gold bg-gold text-on-gold hover:border-gold-hi hover:bg-gold-hi; }
+  .panel { @apply rounded border border-line bg-surface p-7; }
+  .field {
+    @apply w-full rounded border border-line-2 bg-surface px-3 py-[11px] text-base text-text;
+  }
+  .field:focus { @apply border-gold outline-none; box-shadow: 0 0 0 3px var(--gold-soft); }
+}
