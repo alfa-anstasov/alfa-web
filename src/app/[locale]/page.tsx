@@ -10,9 +10,10 @@ import type { AppPathname, Locale } from '@/i18n/routing';
 import { homeJsonLd } from '@/lib/jsonld';
 import { alternatesFor, robotsFor } from '@/lib/seo';
 
-type Props = { params: { locale: string } };
+type Props = { params: Promise<{ locale: string }> };
 
-export async function generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
   return {
     title: { absolute: t('fallbackTitle') },
@@ -136,7 +137,8 @@ function History() {
   );
 }
 
-export default function HomePage({ params: { locale } }: Props) {
+export default async function HomePage({ params }: Props) {
+  const { locale } = await params;
   setRequestLocale(locale);
   return (
     <>

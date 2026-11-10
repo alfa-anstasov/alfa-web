@@ -4,14 +4,16 @@ import { Calculator } from '@/components/Calculator';
 import type { Locale } from '@/i18n/routing';
 import { alternatesFor, robotsFor } from '@/lib/seo';
 
-type Props = { params: { locale: string } };
+type Props = { params: Promise<{ locale: string }> };
 
-export async function generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'calculator' });
   return { title: t('title'), description: t('intro'), alternates: alternatesFor('/calculator', locale as Locale), robots: robotsFor() };
 }
 
-export default async function CalculatorPage({ params: { locale } }: Props) {
+export default async function CalculatorPage({ params }: Props) {
+  const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'calculator' });
   return (

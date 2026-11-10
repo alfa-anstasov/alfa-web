@@ -9,13 +9,14 @@ import { routing } from '@/i18n/routing';
 import { robotsFor, siteUrl } from '@/lib/seo';
 import '../globals.css';
 
-type Props = { children: React.ReactNode; params: { locale: string } };
+type Props = { children: React.ReactNode; params: Promise<{ locale: string }> };
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export async function generateMetadata({ params: { locale } }: Omit<Props, 'children'>): Promise<Metadata> {
+export async function generateMetadata({ params }: Omit<Props, 'children'>): Promise<Metadata> {
+  const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'meta' });
   return {
     metadataBase: new URL(siteUrl),
@@ -30,7 +31,8 @@ export async function generateMetadata({ params: { locale } }: Omit<Props, 'chil
   };
 }
 
-export default async function LocaleLayout({ children, params: { locale } }: Props) {
+export default async function LocaleLayout({ children, params }: Props) {
+  const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'a11y' });

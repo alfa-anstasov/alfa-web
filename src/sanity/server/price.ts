@@ -1,5 +1,5 @@
 import 'server-only';
-import { createClient } from 'next-sanity';
+import { createClient } from '@sanity/client';
 import { apiVersion, dataset, projectId } from '../env';
 
 /**
@@ -20,8 +20,8 @@ const priceQuery = /* groq */ `*[_type == $kind && $slug in slug[].value.current
 }`;
 
 export interface PriceLookup {
-  /** Price in BGN as entered in Sanity. */
-  priceBgn: number;
+  /** Price in EUR as entered in Sanity. */
+  price: number;
   productName: string | null;
 }
 
@@ -40,5 +40,5 @@ export async function readPrivatePrice(kind: PriceKind, slug: string): Promise<P
     { cache: 'no-store' },
   );
   if (!row || typeof row.price !== 'number') return null;
-  return { priceBgn: row.price, productName: row.name };
+  return { price: row.price, productName: row.name };
 }

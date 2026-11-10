@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { offices, site } from '@/config/site';
-import { homeJsonLd, officeJsonLd, organizationJsonLd, serializeJsonLd } from '@/lib/jsonld';
+import { homeJsonLd, officeJsonLd, organizationJsonLd, productJsonLd, serializeJsonLd } from '@/lib/jsonld';
 
 describe('JSON-LD', () => {
   it('emits one FuneralHome per office, with the known facts only', () => {
@@ -41,5 +41,12 @@ describe('JSON-LD', () => {
 
   it('escapes "<" so data cannot close the script tag', () => {
     expect(serializeJsonLd({ name: '</script><script>alert(1)' })).not.toContain('<');
+  });
+
+  it('product offers use EUR and never carry a price', () => {
+    const p = productJsonLd({ name: 'X', url: 'https://example.test/x', available: true }) as { offers: Record<string, unknown> };
+    expect(p.offers.priceCurrency).toBe('EUR');
+    expect(p.offers).not.toHaveProperty('price');
+    expect(JSON.stringify(p)).not.toMatch(/BGN/);
   });
 });

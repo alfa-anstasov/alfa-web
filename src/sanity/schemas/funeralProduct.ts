@@ -24,7 +24,7 @@ export const funeralProduct = defineType({
     defineField({ name: 'photos', type: 'array', of: [defineArrayMember({ type: 'image' })] }),
     defineField({ name: 'description', type: L.portableText }),
     // PRIVATE: server-side access only.
-    hiddenPriceField('PRIVATE. Never expose in public queries. Price in BGN.'),
+    hiddenPriceField('PRIVATE. Never expose in public queries. Price in EUR.'),
     // PUBLIC
     defineField({ name: 'priceRange', type: 'string', options: priceRangeOptions }),
     defineField({ name: 'isNew', type: 'boolean' }),

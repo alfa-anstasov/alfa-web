@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { parseContact, priceRevealSchema } from '@/lib/lead-validation';
 import { createRateLimiter } from '@/lib/rate-limit';
-import { bgnToEur } from '@/lib/currency';
+import { CURRENCY, formatEur } from '@/lib/money';
 
 describe('parseContact', () => {
   it('accepts emails and phones', () => {
@@ -38,8 +38,13 @@ describe('rate limiter', () => {
   });
 });
 
-describe('currency', () => {
-  it('converts at the fixed rate', () => {
-    expect(bgnToEur(195.583)).toBe(100);
+describe('money (euro only)', () => {
+  it('is EUR', () => {
+    expect(CURRENCY).toBe('EUR');
+  });
+  it('formats euros per locale', () => {
+    expect(formatEur(1234.5, 'en')).toBe('€1,234.50');
+    expect(formatEur(1234.5, 'bg')).toMatch(/1\s?234,50\s?€/);
+    expect(formatEur(1234.5, 'ru')).toMatch(/1\s234,50\s€/);
   });
 });

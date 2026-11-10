@@ -25,7 +25,7 @@ export const maintenancePlan = defineType({
         }),
       ],
     }),
-    hiddenPriceField('PRIVATE. Annual price in BGN.'),
+    hiddenPriceField('PRIVATE. Annual price in EUR.'),
     defineField({ name: 'priceNote', type: L.string, description: 'e.g. the price depends on the location' }),
     defineField({ name: 'order', type: 'number' }),
     defineField({ name: 'isActive', type: 'boolean', initialValue: true }),

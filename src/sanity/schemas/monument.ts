@@ -46,7 +46,7 @@ export const monument = defineType({
     }),
     defineField({ name: 'description', type: L.portableText }),
     // PRIVATE: server-side access only, after lead capture.
-    hiddenPriceField('PRIVATE. Never expose in public queries. Price in BGN (see README for the BGN/EUR decision).'),
+    hiddenPriceField('PRIVATE. Never expose in public queries. Price in EUR.'),
     // PUBLIC: for filtering only.
     defineField({ name: 'priceRange', type: 'string', options: priceRangeOptions }),
     defineField({ name: 'isNew', type: 'boolean', description: 'Shows the НОВО badge' }),

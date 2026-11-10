@@ -32,12 +32,12 @@ describe('POST /api/price-reveal', () => {
     expect(readPrivatePrice).not.toHaveBeenCalled();
   });
 
-  it('reads the price only after validation and returns BGN + EUR, uncached', async () => {
-    readPrivatePrice.mockResolvedValue({ priceBgn: 195.583, productName: 'X' });
+  it('reads the price only after validation and returns the EUR price, uncached', async () => {
+    readPrivatePrice.mockResolvedValue({ price: 120.5, productName: 'X' });
     const res = await POST(req(good));
     expect(res.status).toBe(200);
     expect(res.headers.get('cache-control')).toBe('no-store');
-    expect(await res.json()).toEqual({ priceBgn: 195.583, priceEur: 100 });
+    expect(await res.json()).toEqual({ price: 120.5, currency: 'EUR' });
     expect(readPrivatePrice).toHaveBeenCalledWith('monument', 'granite-black-1');
   });
 
@@ -50,7 +50,7 @@ describe('POST /api/price-reveal', () => {
   });
 
   it('rate limits per IP (10 per hour)', async () => {
-    readPrivatePrice.mockResolvedValue({ priceBgn: 1, productName: null });
+    readPrivatePrice.mockResolvedValue({ price: 1, productName: null });
     const ip = '192.0.2.99';
     for (let i = 0; i < 10; i++) expect((await POST(req(good, ip))).status).toBe(200);
     const blocked = await POST(req(good, ip));

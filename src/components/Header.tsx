@@ -21,16 +21,21 @@ const secondary: AppPathname[] = ['/faq', '/reviews', '/contact', '/about-us'];
 export function Header() {
   const t = useTranslations('header');
   const p = useTranslations('pages');
-  const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  // The menu is open only for the page it was opened on, so navigating closes it without an effect.
+  const [openAt, setOpenAt] = useState<string | null>(null);
+  const open = openAt === pathname;
+  const setOpen = (value: boolean | ((v: boolean) => boolean)) => {
+    const next = typeof value === 'function' ? value(open) : value;
+    setOpenAt(next ? pathname : null);
+  };
   const box = useRef<HTMLDivElement>(null);
 
-  useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpenAt(null);
     const onClick = (e: MouseEvent) => {
-      if (box.current && !box.current.contains(e.target as Node)) setOpen(false);
+      if (box.current && !box.current.contains(e.target as Node)) setOpenAt(null);
     };
     document.addEventListener('keydown', onKey);
     document.addEventListener('mousedown', onClick);

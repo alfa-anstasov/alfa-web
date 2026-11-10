@@ -4,13 +4,14 @@ import { ComingSoon } from '@/components/ComingSoon';
 import type { AppPathname, Locale } from '@/i18n/routing';
 import { alternatesFor, robotsFor } from '@/lib/seo';
 
-type Props = { params: { locale: string } };
+type Props = { params: Promise<{ locale: string }> };
 
 /** Placeholder for a page that is built in a later phase. Keeps routing, nav and hreflang working. */
 export function createStubPage(href: AppPathname) {
   const key = href.slice(1);
   return {
-    async generateMetadata({ params: { locale } }: Props): Promise<Metadata> {
+    async generateMetadata({ params }: Props): Promise<Metadata> {
+      const { locale } = await params;
       const [p, m] = await Promise.all([
         getTranslations({ locale, namespace: 'pages' }),
         getTranslations({ locale, namespace: 'meta' }),
@@ -21,7 +22,8 @@ export function createStubPage(href: AppPathname) {
         robots: robotsFor(),
       };
     },
-    async Page({ params: { locale } }: Props) {
+    async Page({ params }: Props) {
+      const { locale } = await params;
       setRequestLocale(locale);
       const p = await getTranslations({ locale, namespace: 'pages' });
       return (

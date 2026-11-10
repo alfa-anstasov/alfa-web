@@ -6,7 +6,7 @@
  */
 
 /**
- * THE COUNTING RULE (owner to confirm against how the ALFA offices count).
+ * THE COUNTING RULE (confirmed by the owner: the day of death is day 1).
  *
  * `true`  : the day of death is day 1.  3rd day = death + 2, 9th day = death + 8,
  *           40th day = death + 39, 1 year (365th day) = death + 364.
@@ -82,7 +82,7 @@ export function computeCommemorations(deathIso: string): Commemoration[] {
   };
 
   // 6 months: the calendar date six months on, shifted by one day under the same
-  // "day of death is day 1" rule. TODO(owner): confirm; the spec only defines 9, 40 and 1 year.
+  // "day of death is day 1" rule. NOTE: this 6-month rule is our own extension; the spec defines only 9, 40 and 1 year.
   const sixMonthsDate = addDays(addMonths(deathIso, 6), DAY_OF_DEATH_IS_DAY_ONE ? -1 : 0);
 
   return [

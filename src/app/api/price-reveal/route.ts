@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { bgnToEur } from '@/lib/currency';
+import { CURRENCY } from '@/lib/money';
 import { parseContact, priceRevealSchema } from '@/lib/lead-validation';
 import { createRateLimiter } from '@/lib/rate-limit';
 import { isPriceTokenConfigured, readPrivatePrice } from '@/sanity/server/price';
@@ -59,8 +59,8 @@ export async function POST(request: Request) {
   }
   if (!lookup) return json({ error: 'not_found' }, 404);
 
-  // BGN is what Sanity stores; the euro value is returned too (euro adoption, 1 Jan 2026).
-  return json({ priceBgn: lookup.priceBgn, priceEur: bgnToEur(lookup.priceBgn) });
+  // Sanity stores euros; that is the only currency returned.
+  return json({ price: lookup.price, currency: CURRENCY });
 }
 
 // Everything else is not allowed.

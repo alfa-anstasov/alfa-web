@@ -70,3 +70,22 @@ export function homeJsonLd(locale: Locale): Json[] {
 export function serializeJsonLd(data: Json | Json[]): string {
   return JSON.stringify(data).replaceAll('<', '\\u003c');
 }
+
+/**
+ * Product JSON-LD. Prices are hidden until lead capture, so public markup states the currency
+ * and availability but NEVER a price: `offers.price` must not be added on public pages.
+ */
+export function productJsonLd(p: { name: string; url: string; image?: string; available: boolean }): Json {
+  return compact({
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: p.name,
+    url: p.url,
+    image: p.image,
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'EUR',
+      availability: p.available ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+    },
+  });
+}
