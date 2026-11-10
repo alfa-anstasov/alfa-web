@@ -1,0 +1,12 @@
+/* Self-hosted through @fontsource: the woff2 files are bundled by Next and served from our own origin.
+   No request ever goes to Google Fonts. Cyrillic is needed for bg/ru, latin for en and numerals. */
+@import '@fontsource/cormorant-garamond/cyrillic-500.css';
+@import '@fontsource/cormorant-garamond/latin-500.css';
+@import '@fontsource/cormorant-garamond/cyrillic-600.css';
+@import '@fontsource/cormorant-garamond/latin-600.css';
+@import '@fontsource/cormorant-garamond/cyrillic-500-italic.css';
+@import '@fontsource/cormorant-garamond/latin-500-italic.css';
+@import '@fontsource/jost/cyrillic-400.css';
+@import '@fontsource/jost/latin-400.css';
+@import '@fontsource/jost/cyrillic-500.css';
+@import '@fontsource/jost/latin-500.css';

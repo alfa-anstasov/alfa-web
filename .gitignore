@@ -1,0 +1,17 @@
+# dependencies
+node_modules/
+# build output
+.next/
+out/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+# env (names only live in .env.example)
+.env
+.env.*
+!.env.example
+# misc
+.DS_Store
+npm-debug.log*
+.vercel
+.sanity/
